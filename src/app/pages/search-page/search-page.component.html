@@ -1,0 +1,13 @@
+<asd-card [headerDivider]="true" [footerDivider]="true">
+	<div cardHeader>
+		<h3>Filtro Estados</h3>
+	</div>
+
+	<div cardContent>
+		<be-state-filter [states]="states" (stateSelected)="saveStateSelected($event)"></be-state-filter>
+	</div>
+
+	<div cardFooter>
+		<asd-button color="primary">Continuar</asd-button>
+	</div>
+</asd-card>

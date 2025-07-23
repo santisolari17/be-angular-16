@@ -1,0 +1,283 @@
+variables:
+    PROJECT_NAME: $CI_PROJECT_NAME
+    LINE: "--===========================================================--"
+    GREEN: \e[1;32m
+    RED: \e[1;31m
+    YELLOW: \e[1;33m
+    NC: \e[0m
+
+stages:
+    - start
+    - checkmarx
+    - sonar
+    - install  
+    - unityTest
+    - coverage
+    - build
+    - deploy
+    - pruebasContrato
+    - performance
+    - deployQA
+    - productionCall
+    - rollback
+
+
+start:
+    except:
+      - tags
+    image: empresasdesa.icp:8500/operaciones/pipeline-scripts-${BECH_GITLAB_NODE_VERSION}:latest
+    stage: start    
+    tags: 
+      - DockerInDocker
+    before_script:
+      - bash /usr/src/bash/before_script.sh
+    script: 
+      - bash /usr/src/bash/script.sh
+    after_script:
+      - bash /usr/src/bash/after_script.sh
+    artifacts:
+      when: always 
+      paths:
+        - datos_ejecucion
+        - rollback
+    when: manual
+    allow_failure: false
+
+Checkmarx:
+    except:
+      - tags
+    only:
+      variables:
+        - $CHECKMARX == "true"
+    image: empresasdesa.icp:8500/operaciones/pipeline-scripts-${BECH_GITLAB_NODE_VERSION}:latest
+    stage: checkmarx
+    tags: 
+      - DockerInDocker
+    before_script:
+      - bash /usr/src/bash/before_script.sh
+    script: 
+      - bash /usr/src/bash/script.sh
+    after_script:
+      - bash /usr/src/bash/after_script.sh
+    allow_failure: true
+    dependencies: []
+
+pruebas sonar:
+    except:
+      - tags
+    image: empresasdesa.icp:8500/operaciones/pipeline-sonarqube:latest
+    stage: sonar
+    tags: 
+      - DockerInDocker
+    before_script:
+      - bash /usr/src/bash/before_script.sh
+    script: 
+      - bash /usr/src/bash/script.sh
+    after_script:
+      - bash /usr/src/bash/after_script.sh
+    allow_failure: true
+
+
+install:
+    except:
+      - tags
+    image: empresasdesa.icp:8500/operaciones/pipeline-scripts-${BECH_GITLAB_NODE_VERSION}:latest
+    stage: install
+    tags: 
+      - DockerInDocker
+    before_script:
+      - bash /usr/src/bash/before_script.sh
+    script: 
+      - bash /usr/src/bash/script.sh
+    after_script:
+      - bash /usr/src/bash/after_script.sh
+    artifacts:
+      paths:
+        - node_modules
+        - dist
+
+pruebas unitarias:
+    except:
+      - tags
+    image: empresasdesa.icp:8500/operaciones/pipeline-scripts-${BECH_GITLAB_NODE_VERSION}:latest
+    stage: unityTest
+    tags: 
+      - DockerInDocker
+    before_script:
+      - bash /usr/src/bash/before_script.sh
+    script: 
+      - bash /usr/src/bash/script.sh
+    after_script:
+      - bash /usr/src/bash/after_script.sh
+    artifacts:
+      when: always 
+      paths:
+        - lcov-summary-filtered      
+
+coverage:
+    except:
+      - tags
+    image: empresasdesa.icp:8500/operaciones/pipeline-scripts-${BECH_GITLAB_NODE_VERSION}:latest
+    stage: coverage
+    tags: 
+      - DockerInDocker
+    before_script:
+      - bash /usr/src/bash/before_script.sh
+    script: 
+      - bash /usr/src/bash/script.sh
+    after_script:
+      - bash /usr/src/bash/after_script.sh
+    dependencies:
+      - pruebas unitarias
+    coverage: '/Total Coverage:*\s+\d+\.\d+%/'   
+
+build image publisher:
+    except:
+      - tags
+    image: empresasdesa.icp:8500/operaciones/pipeline-publisher-${BECH_GITLAB_NODE_VERSION}:latest
+    services:
+      - name: empresasdesa.icp:8500/operaciones/pipeline-publisher:latest
+        alias: docker
+        entrypoint: ["env", "-u", "DOCKER_HOST"]
+        command: ["dockerd-entrypoint.sh"]
+    variables:
+      DOCKER_HOST: tcp://docker:2375/
+      DOCKER_DRIVER: overlay2
+      DOCKER_TLS_CERTDIR: ""
+    stage: build
+    tags: 
+      - DockerInDocker
+    before_script:
+      - bash /usr/src/bash/before_script.sh
+    script: 
+      - bash /usr/src/bash/script.sh
+    after_script:
+      - bash /usr/src/bash/after_script.sh
+    artifacts:
+      when: always 
+      paths:
+        - hash_image_id_desa
+        - gl-container-scanning-report.html
+
+
+kubernetes:
+    except:
+      - tags
+    stage: deploy
+    tags: 
+      - KubernetesEmpresaDesa
+    before_script:
+      - bash /usr/src/bash/before_script.sh
+    script: 
+      - bash /usr/src/bash/script.sh
+    after_script:
+      - bash /usr/src/bash/after_script.sh
+    dependencies: []
+    artifacts:
+      when: always 
+      paths:
+        - pod
+        - rollback-health   
+        - helm_${CI_PIPELINE_ID}.txt
+        - kubernetes     
+   
+
+pruebas de contrato:
+    except:
+      - tags
+    image: empresasdesa.icp:8500/operaciones/pipeline-scripts-${BECH_GITLAB_NODE_VERSION}:latest
+    stage: pruebasContrato
+    tags: 
+      - DockerInDocker
+    before_script:
+      - bash /usr/src/bash/before_script.sh
+    script: 
+      - bash /usr/src/bash/script.sh
+    after_script:
+      - bash /usr/src/bash/after_script.sh
+    dependencies: []
+    allow_failure: true
+
+validacion JMX:
+    except:
+      - tags
+    image: empresasdesa.icp:8500/operaciones/pipeline-jmeter:latest
+    stage: performance
+    tags:
+      - DockerInDocker
+    before_script:
+      - bash /usr/src/bash/before_script.sh
+    script: 
+      - bash /usr/src/bash/script.sh
+    after_script:
+      - bash /usr/src/bash/after_script.sh
+    dependencies: []
+    artifacts:
+        when: always 
+        paths:
+        - pruebasPerformance/salida
+      
+
+kubernetes QA:
+    except:
+      - tags
+    services:
+      - name: empresasqa.icp:8500/operaciones/pipeline-deploy:latest
+        alias: docker
+        entrypoint: ["env", "-u", "DOCKER_HOST"]
+        command: ["dockerd-entrypoint.sh"]
+    variables:  
+      DOCKER_HOST: tcp://docker:2375/
+      DOCKER_DRIVER: overlay2
+      DOCKER_TLS_CERTDIR: ""         
+      MAXRETRY: 50
+      SECONDSTOWAIT: 3  
+    tags: 
+      - KubernetesEmpresaQA      
+    stage: deployQA
+    before_script:
+      - bash /usr/src/bash/before_script.sh
+    script: 
+      - bash /usr/src/bash/script.sh
+    after_script:
+      - bash /usr/src/bash/after_script.sh
+    dependencies: []
+    artifacts:
+      paths:
+        - kubernetes
+    allow_failure: false
+    when: manual   
+
+production:
+    except:
+      - tags
+    image: empresasdesa.icp:8500/operaciones/pipeline-scripts-${BECH_GITLAB_NODE_VERSION}:latest
+    stage: productionCall    
+    tags: 
+      - DockerInDocker
+    before_script:
+      - bash /usr/src/bash/before_script.sh
+    script: 
+      - bash /usr/src/bash/script.sh
+    after_script:
+      - bash /usr/src/bash/after_script.sh
+    dependencies: []
+    allow_failure: false
+    when: manual
+
+.rollback:
+    stage: rollback 
+    tags: 
+      - EmpresasDev
+    before_script:
+      - bash /usr/src/bash/before_script.sh
+    script: 
+      - bash /usr/src/bash/script.sh
+    after_script:
+      - bash /usr/src/bash/after_script.sh
+    when: on_failure
+    artifacts:
+        when: always 
+        paths:
+        - helmrollback.log
+# Fin CI      

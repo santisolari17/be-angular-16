@@ -1,0 +1,18 @@
+<asd-modal-alert width="430px" status="error" btnText="Cerrar" [(visible)]="errorHandler.modalErrorTecnico">
+	<section asd-modal-alert-header>
+		<span>{{ errorHandler.modalData.titulo }}</span>
+	</section>
+	<div asd-modal-alert-body>
+		<div [innerHtml]="errorHandler.modalData.mensaje"></div>
+		<p class="pt-2" [innerHtml]="errorHandler.modalData.codigo"></p>
+	</div>
+</asd-modal-alert>
+
+<asd-modal-alert width="430px" status="error" btnText="Cerrar" [(visible)]="errorHandler.modalErrorNegocio">
+	<section asd-modal-alert-header>
+		<span>{{ errorHandler.modalData.titulo }}</span>
+	</section>
+	<div asd-modal-alert-body>
+		<div [innerHtml]="errorHandler.modalData.mensaje"></div>
+	</div>
+</asd-modal-alert>

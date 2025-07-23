@@ -1,0 +1,9 @@
+<asd-card class="mb-32" [headerDivider]="false" [showFooter]="false" [showHeader]="false">
+	<div cardContent>
+		<label class="mb-3" for="state">Estado</label>
+		<select name="state" id="state" class="dsd-web-input--select" [(ngModel)]="selection" (change)="selectState()">
+			<option selected [ngValue]="null">Seleccione...</option>
+			<option *ngFor="let state of states" [ngValue]="state">{{ state.glosa }}</option>
+		</select>
+	</div>
+</asd-card>

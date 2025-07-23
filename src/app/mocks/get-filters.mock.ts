@@ -1,0 +1,103 @@
+export const getFiltersMock = {
+	codigo: 200,
+	mensaje: 'Obtiene filtros para busqueda de nominas por autorizar OK',
+	resultado: 'E',
+	payload: {
+		convenios: [
+			{
+				numConvenio: '0000004020',
+				descripcion: 'Monobanco',
+				tipoServicio: 'S',
+			},
+			{
+				numConvenio: '0000004023',
+				descripcion: 'Multibanco Concentrador',
+				tipoServicio: 'S',
+			},
+			{
+				numConvenio: '0010108054',
+				descripcion: 'Pago de Proveedores Estandar',
+				tipoServicio: 'S',
+			},
+			{
+				numConvenio: '0010208058',
+				descripcion: 'OPF Version 20.3',
+				tipoServicio: 'S',
+			},
+		],
+		estados: [
+			{
+				codigo: 115,
+				glosa: 'Sin Autorización',
+				tipo: 'autorizacion',
+			},
+			{
+				codigo: 205,
+				glosa: 'Pendiente Otra Autorización',
+				tipo: 'autorizacion',
+			},
+			{
+				codigo: 210,
+				glosa: 'Rechazada en Autorización',
+				tipo: 'autorizacion',
+			},
+			{
+				codigo: 400,
+				glosa: 'Autorizada sin Provisión',
+				tipo: 'autorizacion',
+			},
+			{
+				codigo: 501,
+				glosa: 'Pendiente Otra Provisión',
+				tipo: 'autorizacion',
+			},
+			{
+				codigo: 503,
+				glosa: 'Rechazada en Provisión',
+				tipo: 'autorizacion',
+			},
+			{
+				codigo: 600,
+				glosa: 'Provisionada',
+				tipo: 'autorizacion',
+			},
+			{
+				codigo: 601,
+				glosa: 'Provisionada Autorizada',
+				tipo: 'autorizacion',
+			},
+			{
+				codigo: 605,
+				glosa: 'Procesada Pagada',
+				tipo: 'autorizacion',
+			},
+			{
+				codigo: 702,
+				glosa: 'Validación',
+				tipo: 'autorizacion',
+			},
+			{
+				codigo: 703,
+				glosa: 'Rechazada en Validación',
+				tipo: 'autorizacion',
+			},
+			{
+				codigo: 707,
+				glosa: 'Informada',
+				tipo: 'autorizacion',
+			},
+			{
+				codigo: 709,
+				glosa: 'Bloqueada',
+				tipo: 'autorizacion',
+			},
+			{
+				codigo: 710,
+				glosa: 'Vencida',
+				tipo: 'autorizacion',
+			},
+		],
+	},
+	mensajeNegocio: '',
+	codigoOperacion: 'BBE.GFI.0000',
+};
