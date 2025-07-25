@@ -18,7 +18,7 @@
     "format": "prettier --write \"./src/**/*.{ts,json,html}\"",
     "lint-staged": "npx lint-staged -r",
     "lint-format": "npm run format && ng lint",
-    "local:stubby": "ng serve --proxy-config stubs/config/proxy/proxy-stubs.conf.json",
+    "local:stubby": "ng serve --configuration local --proxy-config stubs/config/proxy/proxy-stubs.conf.json",
     "start": "node server.js",
     "stats": "webpack-bundle-analyzer dist/*/stats.json",
     "stubs": "stubby -s 3000 -d stubs/config/config.json -w",
