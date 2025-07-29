@@ -1,6 +1,6 @@
 import { EBackendResponseType } from '@services/http/enums/EBackendResponseType';
 import { THttpServiceResponse } from '@services/http/types/THttpServiceResponse';
-import { ENDPOINTS } from '@utils/constants';
+import { BFF_VERSION_PREFIX, ENDPOINTS } from '@utils/constants';
 import { TInitialFiltersBackendPayload } from 'src/app/backend/models/InitialFiltersResponse.entity';
 import { StubbyData } from 'stubby';
 
@@ -34,7 +34,7 @@ const INITIAL_FILTERS_RESPONSE_MOCK: THttpServiceResponse<TInitialFiltersBackend
 
 export const INITIAL_FILTERS_ENDPOINT_STUB: StubbyData = {
 	request: {
-		url: `^/${ENDPOINTS.getInitialFilters}$`,
+		url: `^${BFF_VERSION_PREFIX}/${ENDPOINTS.getInitialFilters}$`,
 		method: 'GET',
 	},
 	response: {

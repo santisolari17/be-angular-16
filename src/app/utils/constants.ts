@@ -14,8 +14,7 @@ export const LOCAL_HOST = `http://localhost:${STUBBY_SERVER_PORT}`;
 
 export const APPLICATION_BASE_URL = 'my-example-app';
 export const APPLICATION_NAME = 'my-example-app';
-export const APPLICATION_URL = `${LOCATION_ORIGIN}/apps/${APPLICATION_NAME}/`;
-// export const BFF_URL = `${LOCATION_ORIGIN}/${BFF_VERSION_PREFIX}/`; // TODO KEEP LOCATION ORIGIN
+export const APPLICATION_URL = `/apps/${APPLICATION_NAME}/`;
 export const BFF_URL = `${BFF_VERSION_PREFIX}/`;
 export const SECURITY_MODULE_URL = `${LOCATION_ORIGIN}/apps/modulo-desafio-web`;
 
