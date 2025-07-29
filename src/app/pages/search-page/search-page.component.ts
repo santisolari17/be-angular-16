@@ -1,47 +1,29 @@
-import { NgIf } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import { StateFilterComponent } from '@components/state-filter/state-filter.component';
-import { IState } from '@interfaces/state.interface';
-import { ExampleBffService } from '@services/example-bff.service';
-import { SignalsService } from '@services/signals.service';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, Signal, computed, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { OptionList } from '@backend/models/OptionList.entity';
+import { AppState } from '@store/app-state/app.state';
+import { EAppStateAction } from '@store/app-state/EAppStateAction';
 import { AsdButtonComponent, AsdCardComponent } from 'asd';
+import { TAppResolverData } from 'src/app/app.resolver';
 
 const ARANDANO = [AsdButtonComponent, AsdCardComponent];
 @Component({
 	selector: 'be-search-page',
 	standalone: true,
-	imports: [NgIf, StateFilterComponent, ...ARANDANO],
+	imports: [CommonModule, ...ARANDANO],
 	templateUrl: './search-page.component.html',
 	styleUrls: ['./search-page.component.scss'],
 })
 export class SearchPageComponent implements OnInit {
-	public states: IState[] = [];
-	public stateSelected: IState;
-	private _exampleBffService = inject(ExampleBffService);
-	private _signalsService: SignalsService = inject(SignalsService);
+	public options: Signal<OptionList[]>;
+
+	private _route = inject(ActivatedRoute);
+	private _appState = inject(AppState);
 
 	ngOnInit(): void {
-		this.getFilters();
-	}
-
-	/**
-	 * The function "getFilters" retrieves filters from a service and updates the states variable with the
-	 * retrieved data.
-	 */
-	getFilters(): void {
-		this._exampleBffService.getFilters().subscribe({
-			next: ({ estados }) => {
-				this._signalsService.showExportBtn(true);
-				this.states = estados;
-			},
-		});
-	}
-
-	/**
-	 * The function saves the selected state in the stateSelected variable.
-	 * @param {IState} state - The parameter "state" is of type "IState".
-	 */
-	saveStateSelected(state: IState): void {
-		this.stateSelected = state;
+		const resolvedData: TAppResolverData = this._route.snapshot.data['indexPageResolver'];
+		this._appState.dispatchAction({ type: EAppStateAction.PatchInitialFilters, payload: resolvedData.initialFilters });
+		this.options = computed(() => resolvedData.initialFilters.optionList);
 	}
 }

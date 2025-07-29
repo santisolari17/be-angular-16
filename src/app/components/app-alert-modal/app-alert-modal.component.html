@@ -1,0 +1,20 @@
+<asd-modal-alert
+	width="600px"
+	[status]="alertConfig().modalType"
+	[btnText]="alertConfig().okButtonCaption || 'Aceptar'"
+	[(visible)]="showModal"
+	(visibleChange)="closeModalHanlder()">
+	<section asd-modal-alert-header>{{ alertConfig().title }}</section>
+	<div asd-modal-alert-body>
+		<div
+			*ngFor="let message of alertConfig().messages"
+			[ngClass]="{
+				'mt-4': message.topMarginLevel === 1,
+				'mt-8': message.topMarginLevel === 2,
+				'mt-16': message.topMarginLevel === 3,
+				'mt-24': message.topMarginLevel === 4
+			}">
+			{{ message.text }}
+		</div>
+	</div>
+</asd-modal-alert>

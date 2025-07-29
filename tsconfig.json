@@ -18,6 +18,9 @@
       "DOM"
     ],
     "paths": {
+      "@backend/*": [
+        "src/app/backend/*"
+      ],
       "@components/*": [
         "src/app/components/*"
       ],
@@ -44,6 +47,9 @@
       ],
       "@services/*": [
         "src/app/services/*"
+      ],
+      "@store/*": [
+        "src/app/store/*"
       ],
       "@utils/*": [
         "src/app/utils/*"

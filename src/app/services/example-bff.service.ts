@@ -13,6 +13,7 @@ export class ExampleBffService {
 	 * @returns The method is returning an Observable of type FiltersResponse.
 	 */
 	public getFilters(): Observable<FiltersResponse> {
-		return this._httpHandlerService.post('filtros', ENDPOINTS.getFilters, null).pipe(map((data: IResponse) => data.payload as FiltersResponse));
+		console.log('COJSULTA');
+		return this._httpHandlerService.get('filtros', ENDPOINTS.getInitialFilters).pipe(map((data: IResponse) => data.payload as FiltersResponse));
 	}
 }

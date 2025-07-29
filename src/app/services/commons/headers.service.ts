@@ -1,6 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { APPLICATION, FUNCIONALITY } from '@utils/constants';
 
 @Injectable({
 	providedIn: 'root',
@@ -14,9 +13,9 @@ export class HeadersService {
 	 */
 	getDefaultHeaders(stage: string): HttpHeaders {
 		const headers = new HttpHeaders({
-			funcionalidad: FUNCIONALITY,
+			funcionalidad: '',
 			'config-loader': 'true',
-			nombreAplicacion: APPLICATION,
+			nombreAplicacion: '',
 			etapa: stage,
 		});
 

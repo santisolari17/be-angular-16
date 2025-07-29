@@ -4,7 +4,7 @@
 	</div>
 
 	<div cardContent>
-		<be-state-filter [states]="states" (stateSelected)="saveStateSelected($event)"></be-state-filter>
+		<div *ngFor="let option of options()">{{ option.description }}</div>
 	</div>
 
 	<div cardFooter>

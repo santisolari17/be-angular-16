@@ -1,0 +1,13 @@
+import { TReducerAction, TReducerFunction } from '@services/application-State/application-state.models';
+import { TAppState } from '../TAppState';
+import { InitialFiltersResponse } from '@backend/models/InitialFiltersResponse.entity';
+import { EAppStateAction } from '../EAppStateAction';
+
+const reducerFn: TReducerFunction<TAppState, InitialFiltersResponse> = (state, payload) => {
+	return { ...state, initialFiltersResponse: payload };
+};
+
+export const patchInitialFiltersReducerAction: TReducerAction<TAppState, InitialFiltersResponse> = {
+	type: EAppStateAction.PatchInitialFilters,
+	reducerFn,
+};
