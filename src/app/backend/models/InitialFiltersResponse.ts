@@ -1,5 +1,5 @@
 import { IsBoolean, IsDateString, ValidateNested } from 'class-validator';
-import { OptionList, TOptionListBackendPayload } from './OptionList.entity';
+import { OptionList, TOptionListBackendPayload } from './OptionList';
 
 export type TInitialFiltersBackendPayload = {
 	tieneAcceso: boolean;

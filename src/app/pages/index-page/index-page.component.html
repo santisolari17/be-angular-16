@@ -1,0 +1,73 @@
+<div class="index-page-container">
+	<div class="row m-16">
+		<div class="asd-col__md-12">
+			<asd-headtitle title="Consulta de cuentas (Plantilla ejemplo angular-16)">
+				<asd-button size="x-small" asdtype="tonal" title="Exportar a PDF">
+					<asd-icon name="asd_export" color="#244980" size="16"></asd-icon> Exportar a PDF
+				</asd-button>
+			</asd-headtitle>
+		</div>
+	</div>
+	<div class="row m-16">
+		<div class="asd-col__md--6">
+			<asd-card [headerDivider]="true" [footerDivider]="true">
+				<div cardHeader>
+					<h2>Filtro Tipo Cuentas</h2>
+				</div>
+
+				<div cardContent>
+					<asd-input-label for="selected-2" id="asd-label-select-2" forForce>Tipo Cuentas</asd-input-label>
+					<asd-select
+						aria-labelledby="asd-label-select-2"
+						id="selected-2"
+						direction="bottom"
+						[value]="'Todos'"
+						(valueChange)="handleSelectValue($event)"
+						(optionsSelectedEmitter)="handleOptionSelected($event)">
+						<asd-select-option *ngFor="let option of options()" [value]="option">
+							{{ option.description }}
+						</asd-select-option>
+					</asd-select>
+				</div>
+
+				<div cardFooter>
+					<asd-button color="primary" (click)="submit()">Consultar</asd-button>
+				</div>
+			</asd-card>
+		</div>
+	</div>
+	<div *ngIf="showResultTable()" class="row m-16">
+		<div class="asd-col__md--12">
+			<asd-card>
+				<div cardHeader>
+					<h3>Resultado Búsqueda</h3>
+				</div>
+				<div cardContent>
+					<asd-table hideSeachInput [data]="tableDatasource()">
+						<ng-template asdTable="head">
+							<tr>
+								<th>Titular</th>
+								<th>Cuenta</th>
+								<th>Numero</th>
+								<th>Trajeta Credito</th>
+								<th>Saldo</th>
+								<th>Ultima Transaccion</th>
+							</tr>
+						</ng-template>
+						<ng-template let-rows asdTable="body">
+							<tr *ngFor="let dataRow of rows">
+								<td>{{ dataRow.accountOwner }}</td>
+								<td>{{ dataRow.accountName }}</td>
+								<td>{{ dataRow.accountNumber }}</td>
+								<td>{{ dataRow.creditCardIssuer }}</td>
+								<td>{{ dataRow.balance | moneda: 'CLP' : '1.0-0' }}</td>
+								<td>{{ dataRow.lastTransactionDate | date: 'dd/MM/yyyy' }}</td>
+							</tr>
+						</ng-template>
+						<asd-table-paginator direction="bottom" [rows]="8" [rowsOptions]="[4, 8, 12]" />
+					</asd-table>
+				</div>
+			</asd-card>
+		</div>
+	</div>
+</div>

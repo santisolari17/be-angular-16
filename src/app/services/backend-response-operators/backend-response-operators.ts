@@ -10,15 +10,23 @@ export abstract class BackendResponseOperators {
 	private _http = inject(HttpService);
 	private _entityValidator = inject(ClassEntityValidatorService);
 
-	public execBackendCall<T>(requestParams: THttpRequestParams, ResponseEntity: new (params: unknown) => T): Observable<T> {
+	protected execBackendCall<T>(requestParams: THttpRequestParams, ResponseEntity: new (params: unknown) => T): Observable<T> {
 		const backendCall$: Observable<THttpServiceResponse<T>> = this._http.httpRequest(requestParams);
 		return backendCall$.pipe(
 			map(response => new ResponseEntity(response.payload)),
-			this.responseRxOperator(requestParams.requestLabel)
+			this._responseRxOperator(requestParams.requestLabel)
 		);
 	}
 
-	public arrayResponseRxOperator<T>(methodName: string): OperatorFunction<T[], T[]> {
+	protected execBackendCallArrayResponse<T>(requestParams: THttpRequestParams, ResponseEntity: new (params: unknown) => T): Observable<T[]> {
+		const backendCall$: Observable<THttpServiceResponse<T[]>> = this._http.httpRequest(requestParams);
+		return backendCall$.pipe(
+			map(response => response.payload.map(el => new ResponseEntity(el))),
+			this._arrayResponseRxOperator(requestParams.requestLabel)
+		);
+	}
+
+	private _arrayResponseRxOperator<T>(methodName: string): OperatorFunction<T[], T[]> {
 		return mergeMap(list =>
 			from(list).pipe(
 				mergeMap(async entity => {
@@ -31,7 +39,7 @@ export abstract class BackendResponseOperators {
 		);
 	}
 
-	public responseRxOperator<T>(methodName: string): OperatorFunction<T, T> {
+	private _responseRxOperator<T>(methodName: string): OperatorFunction<T, T> {
 		return mergeMap(entity =>
 			of(entity).pipe(
 				mergeMap(async entity => {

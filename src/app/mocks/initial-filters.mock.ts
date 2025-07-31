@@ -1,7 +1,7 @@
 import { EBackendResponseType } from '@services/http/enums/EBackendResponseType';
 import { THttpServiceResponse } from '@services/http/types/THttpServiceResponse';
 import { BFF_VERSION_PREFIX, ENDPOINTS } from '@utils/constants';
-import { TInitialFiltersBackendPayload } from 'src/app/backend/models/InitialFiltersResponse.entity';
+import { TInitialFiltersBackendPayload } from '@backend/models/InitialFiltersResponse';
 import { StubbyData } from 'stubby';
 
 const INITIAL_FILTERS_BACKEND_PAYLOAD_MOCK: TInitialFiltersBackendPayload = {
@@ -10,15 +10,15 @@ const INITIAL_FILTERS_BACKEND_PAYLOAD_MOCK: TInitialFiltersBackendPayload = {
 	listaOpciones: [
 		{
 			idOpcion: 1,
-			descripcion: 'Opcion 1',
+			descripcion: 'Cuentas Tipo A',
 		},
 		{
 			idOpcion: 2,
-			descripcion: 'Opcion 2',
+			descripcion: 'Cuentas Tipo B',
 		},
 		{
 			idOpcion: 3,
-			descripcion: 'Opcion 3',
+			descripcion: 'Cuentas Tipo C',
 		},
 	],
 };

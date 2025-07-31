@@ -1,13 +1,12 @@
 import { Routes } from '@angular/router';
-import { ExampleBffService } from './services/example-bff.service';
 import { AppResolver } from './app.resolver';
+import { APPLICATION_BASE_URL } from '@utils/constants';
 
 export const routes: Routes = [
-	{ path: '', pathMatch: 'full', redirectTo: '/ejemplo-app' },
+	{ path: '', pathMatch: 'full', redirectTo: `/${APPLICATION_BASE_URL}` },
 	{
-		path: 'ejemplo-app',
+		path: APPLICATION_BASE_URL,
 		resolve: { indexPageResolver: AppResolver },
-		loadComponent: () => import('./pages/search-page/search-page.component').then(comp => comp.SearchPageComponent),
-		providers: [ExampleBffService],
+		loadComponent: () => import('./pages/index-page/index-page.component').then(comp => comp.IndexPageComponent),
 	},
 ];

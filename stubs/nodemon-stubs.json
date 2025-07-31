@@ -1,0 +1,14 @@
+{
+  "watch": [
+    "stubs",
+    "src/app/mocks"
+  ],
+  "ext": "ts,json",
+  "exec": "ts-node -r tsconfig-paths/register -P ./stubs/tsconfig.stubby.json ./stubs/stubby-main.ts",
+  "verbose": true,
+  "delay": 1000,
+  "ignore": [
+    "**/node_modules/**",
+    "**/.git/**"
+  ]
+}
