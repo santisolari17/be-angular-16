@@ -5,11 +5,12 @@ export type TAccountsBackendPayload = {
 	nombreCuenta: string;
 	numeroCuenta: string;
 	tarjetaCredito: string;
+	moneda: string;
 	saldo: number;
 	ultimaTransaccion: string;
 };
 
-export class Accounts {
+export class Account {
 	@IsString()
 	public accountOwner: string;
 
@@ -22,6 +23,9 @@ export class Accounts {
 	@IsString()
 	public creditCardIssuer: string;
 
+	@IsString()
+	public currency: string;
+
 	@IsNumber()
 	public balance: number;
 
@@ -33,6 +37,7 @@ export class Accounts {
 		this.accountName = payload.nombreCuenta;
 		this.accountNumber = payload.numeroCuenta;
 		this.creditCardIssuer = payload.tarjetaCredito;
+		this.currency = payload.moneda;
 		this.balance = payload.saldo;
 		this.lastTransactionDate = new Date(payload.ultimaTransaccion);
 	}

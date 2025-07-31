@@ -10,7 +10,7 @@
 	</div>
 	<div class="row m-16">
 		<div class="asd-col__md--6">
-			<asd-card [headerDivider]="true" [footerDivider]="true">
+			<asd-card [headerDivider]="true">
 				<div cardHeader>
 					<h2>Filtro Tipo Cuentas</h2>
 				</div>
@@ -21,9 +21,8 @@
 						aria-labelledby="asd-label-select-2"
 						id="selected-2"
 						direction="bottom"
-						[value]="'Todos'"
-						(valueChange)="handleSelectValue($event)"
-						(optionsSelectedEmitter)="handleOptionSelected($event)">
+						[value]="options()[0].description"
+						(optionsSelectedEmitter)="optionSelectedHandler($event)">
 						<asd-select-option *ngFor="let option of options()" [value]="option">
 							{{ option.description }}
 						</asd-select-option>
@@ -46,21 +45,35 @@
 					<asd-table hideSeachInput [data]="tableDatasource()">
 						<ng-template asdTable="head">
 							<tr>
+								<th>
+									<asd-table-checkbox-all [keyCheckbox]="'check'" [maxChecked]="5" />
+								</th>
 								<th>Titular</th>
 								<th>Cuenta</th>
 								<th>Numero</th>
-								<th>Trajeta Credito</th>
+								<th>Trajeta Crédito</th>
+								<th>Moneda</th>
 								<th>Saldo</th>
 								<th>Ultima Transaccion</th>
 							</tr>
 						</ng-template>
 						<ng-template let-rows asdTable="body">
 							<tr *ngFor="let dataRow of rows">
+								<td>
+									<asd-table-checkbox
+										[dataRow]="dataRow"
+										[keyCheckbox]="'check'"
+										[maxChecked]="5"
+										[checked]="dataRow.checked"
+										[disabled]="dataRow.disabled"
+										(onChecked)="dataCheckedHanlder($event, dataRow)" />
+								</td>
 								<td>{{ dataRow.accountOwner }}</td>
 								<td>{{ dataRow.accountName }}</td>
 								<td>{{ dataRow.accountNumber }}</td>
 								<td>{{ dataRow.creditCardIssuer }}</td>
-								<td>{{ dataRow.balance | moneda: 'CLP' : '1.0-0' }}</td>
+								<td>{{ dataRow.currency }}</td>
+								<td asdAlign="right">{{ dataRow.balance | moneda: dataRow.currency : '1.0-0' }}</td>
 								<td>{{ dataRow.lastTransactionDate | date: 'dd/MM/yyyy' }}</td>
 							</tr>
 						</ng-template>

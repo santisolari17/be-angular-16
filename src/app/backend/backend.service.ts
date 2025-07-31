@@ -7,7 +7,7 @@ import { BackendResponseOperators } from '@services/backend-response-operators/b
 import { EHttpMethod } from '@services/http/enums/EHttpMethod';
 import { THttpRequestParams } from '@services/http/types/THttpRequestParams';
 import { AccountsRequestBody } from './models/AccountsRequestBody';
-import { Accounts } from './models/Accounts';
+import { Account } from './models/Account';
 
 @Injectable({ providedIn: 'root' })
 export class BackendService extends BackendResponseOperators {
@@ -23,7 +23,7 @@ export class BackendService extends BackendResponseOperators {
 		return this.execBackendCall(requestParams, InitialFiltersResponse);
 	}
 
-	public getAccounts(body: AccountsRequestBody): Observable<Accounts[]> {
+	public getAccounts(body: AccountsRequestBody): Observable<Account[]> {
 		const requestParams: THttpRequestParams = {
 			requestLabel: 'getAccounts',
 			method: EHttpMethod.GET,
@@ -33,6 +33,6 @@ export class BackendService extends BackendResponseOperators {
 			body,
 		};
 
-		return this.execBackendCallArrayResponse<Accounts>(requestParams, Accounts);
+		return this.execBackendCallArrayResponse<Account>(requestParams, Account);
 	}
 }

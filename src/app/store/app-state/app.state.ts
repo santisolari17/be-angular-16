@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApplicationStateSlice } from '@services/application-State/application-state';
+import { ApplicationStateSlice } from '@services/application-state/application-state';
 import { patchInitialFiltersReducerAction } from './reducers/patch-initial-filters.reducer';
 import { TAppState } from './TAppState';
 

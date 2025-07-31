@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BackendService } from '@backend/backend.service';
-import { Accounts } from '@backend/models/Accounts';
+import { Account } from '@backend/models/Account';
 import { AccountsRequestBody } from '@backend/models/AccountsRequestBody';
 import { OptionList } from '@backend/models/OptionList';
 import { AppState } from '@store/app-state/app.state';
@@ -23,7 +23,7 @@ const ARANDANO = [AsdButtonComponent, AsdCardComponent, SelectModule, InputModul
 export class IndexPageComponent implements OnInit {
 	public showResultTable: WritableSignal<boolean> = signal(false);
 	public options: Signal<OptionList[]>;
-	public tableDatasource: WritableSignal<Accounts[]> = signal([]);
+	public tableDatasource: WritableSignal<Account[]> = signal([]);
 
 	private _route = inject(ActivatedRoute);
 	private _appState = inject(AppState);
@@ -48,11 +48,11 @@ export class IndexPageComponent implements OnInit {
 			});
 	}
 
-	public handleSelectValue($event): void {
-		console.log('🚀 ~ CodeSelectComponent ~ selectValue ~ $event:', $event);
+	public dataCheckedHanlder(checked: boolean, dataRow: Account): void {
+		console.log(event, dataRow);
 	}
 
-	public handleOptionSelected($event): void {
-		console.log('🚀 ~ CodeSelectComponent ~ optionSelected ~ $event:', $event);
+	public optionSelectedHandler(option: OptionList): void {
+		console.log(option);
 	}
 }
