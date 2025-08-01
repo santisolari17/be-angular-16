@@ -1,10 +1,10 @@
-import { IsString } from 'class-validator';
+import { IsInt } from 'class-validator';
 
 export class AccountsRequestBody {
-	@IsString()
-	tipoConsultaCuentas: string;
+	@IsInt()
+	tipoConsultaCuentas: number;
 
-	constructor(type: string) {
+	constructor(type: number) {
 		this.tipoConsultaCuentas = type;
 	}
 }

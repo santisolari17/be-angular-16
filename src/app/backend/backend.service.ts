@@ -26,7 +26,7 @@ export class BackendService extends BackendResponseOperators {
 	public getAccounts(body: AccountsRequestBody): Observable<Account[]> {
 		const requestParams: THttpRequestParams = {
 			requestLabel: 'getAccounts',
-			method: EHttpMethod.GET,
+			method: EHttpMethod.POST,
 			url: `${environment.bffUrl}/${environment.endpoints.testCall}`,
 			funcionalidad: environment.functionalities.testCall,
 			etapa: environment.stage.testCall,

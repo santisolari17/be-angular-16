@@ -5,12 +5,13 @@ import { RowsNotSameLengthError } from './errors/RowsNotSameLength.error';
 import { HeaderLengthNotSameAsRowsError } from './errors/HeaderLengthNotSameAsRows.error';
 import { TCorpotateHeaderDataBlock } from './types/TCorpotateHeaderDataBlock';
 import { TServiceHeaderData } from './types/TServiceHeaderData';
+import { environment } from '@env/environment';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ExcelGeneratorService {
-	private _mockLoginData = false;
+	private _mockLoginData = !environment.production;
 	private _driver = new ExcelDocument();
 	private _corporateHeader: ExcelCabecera;
 

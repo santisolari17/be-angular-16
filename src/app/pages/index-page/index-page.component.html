@@ -2,8 +2,8 @@
 	<div class="row m-16">
 		<div class="asd-col__md-12">
 			<asd-headtitle title="Consulta de cuentas (Plantilla ejemplo angular-16)">
-				<asd-button size="x-small" asdtype="tonal" title="Exportar a PDF">
-					<asd-icon name="asd_export" color="#244980" size="16"></asd-icon> Exportar a PDF
+				<asd-button *ngIf="showResultTable()" size="x-small" asdtype="tonal" title="Exportar a Excel" (click)="exportExcel()">
+					<asd-icon name="asd_export" color="#244980" size="16"></asd-icon> Exportar a Excel
 				</asd-button>
 			</asd-headtitle>
 		</div>
@@ -21,7 +21,7 @@
 						aria-labelledby="asd-label-select-2"
 						id="selected-2"
 						direction="bottom"
-						[value]="options()[0].description"
+						[value]="selectedOption().description"
 						(optionsSelectedEmitter)="optionSelectedHandler($event)">
 						<asd-select-option *ngFor="let option of options()" [value]="option">
 							{{ option.description }}
@@ -36,7 +36,7 @@
 		</div>
 	</div>
 	<div *ngIf="showResultTable()" class="row m-16">
-		<div class="asd-col__md--12">
+		<div class="asd-col__md--8">
 			<asd-card>
 				<div cardHeader>
 					<h3>Resultado Búsqueda</h3>
@@ -45,42 +45,35 @@
 					<asd-table hideSeachInput [data]="tableDatasource()">
 						<ng-template asdTable="head">
 							<tr>
-								<th>
-									<asd-table-checkbox-all [keyCheckbox]="'check'" [maxChecked]="5" />
-								</th>
+								<th>Número</th>
 								<th>Titular</th>
 								<th>Cuenta</th>
-								<th>Numero</th>
-								<th>Trajeta Crédito</th>
+								<th>Tarjeta Crédito</th>
 								<th>Moneda</th>
-								<th>Saldo</th>
+								<th style="min-width: 110px">Saldo</th>
 								<th>Ultima Transaccion</th>
 							</tr>
 						</ng-template>
 						<ng-template let-rows asdTable="body">
 							<tr *ngFor="let dataRow of rows">
 								<td>
-									<asd-table-checkbox
-										[dataRow]="dataRow"
-										[keyCheckbox]="'check'"
-										[maxChecked]="5"
-										[checked]="dataRow.checked"
-										[disabled]="dataRow.disabled"
-										(onChecked)="dataCheckedHanlder($event, dataRow)" />
+									<a tabindex="0" (click)="dataClickedHanlder(dataRow)" (keyup)="dataClickedHanlder(dataRow)">{{ dataRow.accountNumber }}</a>
 								</td>
 								<td>{{ dataRow.accountOwner }}</td>
 								<td>{{ dataRow.accountName }}</td>
-								<td>{{ dataRow.accountNumber }}</td>
-								<td>{{ dataRow.creditCardIssuer }}</td>
+								<td [ngClass]="{ 'red-text': dataRow.creditCardIssuer === 'mastercard' }">{{ dataRow.creditCardIssuer }}</td>
 								<td>{{ dataRow.currency }}</td>
 								<td asdAlign="right">{{ dataRow.balance | moneda: dataRow.currency : '1.0-0' }}</td>
 								<td>{{ dataRow.lastTransactionDate | date: 'dd/MM/yyyy' }}</td>
 							</tr>
 						</ng-template>
-						<asd-table-paginator direction="bottom" [rows]="8" [rowsOptions]="[4, 8, 12]" />
+						<asd-table-paginator direction="bottom" [rows]="5" [rowsOptions]="[5, 10, 20]" />
 					</asd-table>
 				</div>
 			</asd-card>
+		</div>
+		<div class="asd-col__md--4">
+			<be-selected-accounts-list-test></be-selected-accounts-list-test>
 		</div>
 	</div>
 </div>

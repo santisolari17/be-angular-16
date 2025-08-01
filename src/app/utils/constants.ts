@@ -4,19 +4,16 @@ type TAppServiceAPI = {
 	testCall: string;
 };
 
-// const LOCATION_ORIGIN = location ? location.origin : ''; TODO
-const LOCATION_ORIGIN = '';
-
-export const STUBBY_SERVER_PORT = 3000;
-export const BFF_VERSION_PREFIX = '/bff/v1/my-example-app-bff';
-export const DESA_HOST = 'https://desa-appempresas.bancoestado.cl';
-export const LOCAL_HOST = `http://localhost:${STUBBY_SERVER_PORT}`;
-
 export const APPLICATION_BASE_URL = 'my-example-app';
 export const APPLICATION_NAME = 'my-example-app';
+export const BFF_VERSION_PREFIX = '/bff/v1/my-example-app-bff';
+export const STUBBY_SERVER_PORT = 3000;
+
+export const DESA_HOST = 'https://desa-appempresas.bancoestado.cl';
+export const LOCAL_HOST = `http://localhost:${STUBBY_SERVER_PORT}`;
 export const APPLICATION_URL = `/apps/${APPLICATION_NAME}/`;
 export const BFF_URL = `${BFF_VERSION_PREFIX}/`;
-export const SECURITY_MODULE_URL = `${LOCATION_ORIGIN}/apps/modulo-desafio-web`;
+export const SECURITY_MODULE_URL = `/apps/modulo-desafio-web`;
 
 // Functionalities
 export const MOCK_FUNCTIONALITY_1 = 'SVXAAA001';

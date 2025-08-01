@@ -2,3 +2,14 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.red-text {
+  color: red !important;
+  font-weight: 800 !important;
+}
+
+a {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #3468b7;
+}

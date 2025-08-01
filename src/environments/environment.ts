@@ -1,11 +1,10 @@
-import { BFF_VERSION_PREFIX, DESA_HOST, ENDPOINTS, FUNCTIONALITIES, STAGES } from '@utils/constants';
+import { BFF_VERSION_PREFIX, DESA_HOST, ENDPOINTS, FUNCTIONALITIES, SECURITY_MODULE_URL, STAGES } from '@utils/constants';
 
 export const environment = {
 	production: false,
-	mockEnvironment: true,
 	bffUrl: `${DESA_HOST}${BFF_VERSION_PREFIX}`,
 	hostRsaService: 'https://desa-appempresas.bancoestado.cl',
-	securityModuleUrl: 'http://localhost:4201',
+	securityModuleUrl: `http://localhost:3001${SECURITY_MODULE_URL}`,
 	endpoints: ENDPOINTS,
 	functionalities: FUNCTIONALITIES,
 	stage: STAGES,

@@ -28,7 +28,7 @@ const INITIAL_FILTERS_RESPONSE_MOCK: THttpServiceResponse<TInitialFiltersBackend
 	mensaje: '[MOCKS] Filtros Obtenidos correctamente',
 	resultado: EBackendResponseType.Success,
 	codigoOperacion: 'AA.BB.CC',
-	mensajeNegocio: '',
+	mensajeNegocio: 'HOLA MUNDO',
 	payload: INITIAL_FILTERS_BACKEND_PAYLOAD_MOCK,
 };
 

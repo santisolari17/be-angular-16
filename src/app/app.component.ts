@@ -1,15 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AppAlertModalModule } from '@components/app-alert-modal/app-alert-modal.module';
-import { GenerateDocsComponent } from '@components/generate-docs/generate-docs.component';
-import { AsdHeadtitleComponent } from 'asd';
 import { ParentInteractorService } from 'beche-utils-lib';
 import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'be-root',
 	standalone: true,
-	imports: [RouterOutlet, AppAlertModalModule, GenerateDocsComponent, AsdHeadtitleComponent],
+	imports: [RouterOutlet, AppAlertModalModule],
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
 })

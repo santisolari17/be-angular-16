@@ -1,0 +1,41 @@
+<asd-card [headerDivider]="true">
+	<div cardHeader>
+		<h2>Cuentas seleccionadas</h2>
+	</div>
+
+	<div cardContent>
+		<div *ngIf="!selected()" class="content__alert">
+			<asd-alert icon="asd_info" type="info">Seleccione una cuenta de la lista</asd-alert>
+		</div>
+		<div *ngIf="selected()" class="content__tables">
+			<ng-container *ngFor="let accounts of datasource()">
+				<div class="table-container mb-16">
+					<h3 class="mb-4">Cuentas en {{ accounts[0].currency }}</h3>
+					<asd-table [data]="accounts">
+						<ng-template asdTable="head">
+							<tr>
+								<th>Numero</th>
+								<th>Cuenta</th>
+								<th>Saldo</th>
+								<th>Eliminar</th>
+							</tr>
+						</ng-template>
+						<ng-template let-rows asdTable="body">
+							<tr *ngFor="let dataRow of rows">
+								<td>{{ dataRow.accountNumber }}</td>
+								<td>{{ dataRow.accountName }}</td>
+								<td asdAlign="right" style="min-width: 110px !important">{{ dataRow.balance | moneda: dataRow.currency : '1.0-0' }}</td>
+								<td asdAlign="center">
+									<asd-button asdtype="icon" aria-label="Eliminar" (click)="deleteAccount(dataRow)">
+										<asd-icon name="asd_trash" color="#000000" size="24" />
+									</asd-button>
+								</td>
+							</tr>
+						</ng-template>
+					</asd-table>
+					<div class="total-label">Total: {{ accountTotals()[accounts[0].currency] | moneda: accounts[0].currency : '1.0-0' }}</div>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+</asd-card>

@@ -1,6 +1,7 @@
-import { IsDateString, IsNumber, IsString } from 'class-validator';
+import { IsDate, IsNumber, IsString, IsUUID } from 'class-validator';
 
 export type TAccountsBackendPayload = {
+	idCuenta: string;
 	duenoCuenta: string;
 	nombreCuenta: string;
 	numeroCuenta: string;
@@ -11,6 +12,9 @@ export type TAccountsBackendPayload = {
 };
 
 export class Account {
+	@IsUUID()
+	public id: string;
+
 	@IsString()
 	public accountOwner: string;
 
@@ -29,10 +33,11 @@ export class Account {
 	@IsNumber()
 	public balance: number;
 
-	@IsDateString()
+	@IsDate()
 	public lastTransactionDate: Date;
 
 	constructor(payload: TAccountsBackendPayload) {
+		this.id = payload.idCuenta;
 		this.accountOwner = payload.duenoCuenta;
 		this.accountName = payload.nombreCuenta;
 		this.accountNumber = payload.numeroCuenta;
