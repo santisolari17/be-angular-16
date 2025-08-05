@@ -9,7 +9,7 @@ import { APPLICATION_NAME } from '@utils/constants';
 import { ParentInteractorService } from 'beche-utils-lib';
 import { AppAlertModalService } from '@components/app-alert-modal/app-alert-modal.service';
 import { EAppAlertModalType } from '@components/app-alert-modal/enums/EAppModalType';
-import { EBackendResponseType, IHttpService, THttpRequestParams, THttpServiceResponse } from '@interfaces/http';
+import { EBackendResponseType, IHttpService, THttpRequestParams, THttpServiceResponse } from 'src/app/interfaces/http-service.interface';
 
 @Injectable({ providedIn: 'root' })
 export class HttpService implements IHttpService {

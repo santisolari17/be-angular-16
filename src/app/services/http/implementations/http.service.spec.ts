@@ -7,7 +7,7 @@ import { PdfDocumentMovimientos } from 'beche-utils-lib';
 import { of } from 'rxjs';
 import { MonedaPipe } from 'asd';
 import { AppAlertModalService } from '@components/app-alert-modal/app-alert-modal.service';
-import { IHttpService } from '@interfaces/http';
+import { IHttpService } from 'src/app/interfaces/http-service.interface';
 import { HttpService } from './http.service';
 
 describe('HttpService', () => {

@@ -8,7 +8,7 @@ module.exports = {
     "@directives/(.*)": ["<rootDir>/src/app/directives/$1"],
     "@guards/(.*)": ["<rootDir>/src/app/guards/$1"],
     "@interceptors/(.*)": ["<rootDir>/src/app/interceptors/$1"],
-    "@interfaces/(.*)": ["<rootDir>/src/app/interfaces/$1"],
+    "@interfaces/http": ["<rootDir>/src/app/interfaces/http-service/index.ts"],
     "@mocks/(.*)": ["<rootDir>/src/app/mocks/$1"],
     "@pages/(.*)": ["<rootDir>/src/app/pages/$1"],
     "@pipes/(.*)": ["<rootDir>/src/app/pipes/$1"],

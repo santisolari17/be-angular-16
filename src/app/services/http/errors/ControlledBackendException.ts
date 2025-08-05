@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { THttpServiceResponse } from '@interfaces/http';
+import { THttpServiceResponse } from 'src/app/interfaces/http-service.interface';
 
 export class ControlledBackendException extends Error {
 	public httpResponse: THttpServiceResponse<any>;

@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { HTTP_SERVICE_TOKEN, IHttpService, THttpRequestParams, THttpServiceResponse } from '@interfaces/http';
+import { IHttpService, THttpRequestParams, THttpServiceResponse } from 'src/app/interfaces/http-service.interface';
 import { ClassEntityValidatorService } from '@services/class-entity-validator/class-entity-validator.service';
 import { OperatorFunction, mergeMap, from, toArray, catchError, ObservedValueOf, of, Observable, map } from 'rxjs';
+import { HTTP_SERVICE_TOKEN } from '@services/http/http-service.provider';
 
 @Injectable({ providedIn: 'root' })
 export abstract class BackendResponseOperators {

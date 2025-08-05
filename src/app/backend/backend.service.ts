@@ -5,7 +5,7 @@ import { InitialFiltersResponse } from './models/InitialFiltersResponse';
 import { BackendResponseOperators } from '@services/backend-response-operators/backend-response-operators';
 import { AccountsRequestBody } from './models/AccountsRequestBody';
 import { Account } from './models/Account';
-import { THttpRequestParams } from '@interfaces/http';
+import { THttpRequestParams } from 'src/app/interfaces/http-service.interface';
 
 @Injectable({ providedIn: 'root' })
 export class BackendService extends BackendResponseOperators {

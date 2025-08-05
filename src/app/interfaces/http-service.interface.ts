@@ -1,5 +1,4 @@
 import { Observable } from 'rxjs';
-import { InjectionToken } from '@angular/core';
 
 export type THttpMethod = 'GET' | 'POST' | 'DELETE' | 'PATCH' | 'PUT';
 
@@ -39,8 +38,28 @@ export type THttpServiceResponse<T> = {
 	mensajeNegocio?: string;
 };
 
+export class ControlledBackendError extends Error {
+	public errorResponse: TBackendHttpErrorResponse;
+
+	constructor(errorResponse: TBackendHttpErrorResponse) {
+		super(errorResponse.message);
+		this.errorResponse = errorResponse;
+
+		Object.setPrototypeOf(this, ControlledBackendError.prototype);
+	}
+}
+
+export class ControlledBackendException extends Error {
+	public httpResponse: THttpServiceResponse<unknown>;
+
+	constructor(httpResponse: THttpServiceResponse<unknown>) {
+		super(httpResponse.mensajeNegocio || httpResponse.mensaje);
+		this.httpResponse = httpResponse;
+
+		Object.setPrototypeOf(this, ControlledBackendException.prototype);
+	}
+}
+
 export interface IHttpService {
 	httpRequest<T>(requestParams: THttpRequestParams): Observable<THttpServiceResponse<T>>;
 }
-
-export const HTTP_SERVICE_TOKEN = new InjectionToken<IHttpService>('HttpService');
