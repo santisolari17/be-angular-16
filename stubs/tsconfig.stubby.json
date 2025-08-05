@@ -1,9 +1,9 @@
 {
-  "extends": "../tsconfig.json",
-  "include": ["stubby/**/*.ts", "src/**/*.ts"],
-  "compilerOptions": {
-    "module": "commonjs",
-    "outDir": "./dist-stubby",
-    "baseUrl": "../",
-  }
+	"extends": "../tsconfig.json",
+	"include": ["stubby/**/*.ts", "src/**/*.ts"],
+	"compilerOptions": {
+		"module": "commonjs",
+		"outDir": "./dist-stubby",
+		"baseUrl": "../"
+	}
 }

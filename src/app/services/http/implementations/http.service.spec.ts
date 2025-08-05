@@ -6,11 +6,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { PdfDocumentMovimientos } from 'beche-utils-lib';
 import { of } from 'rxjs';
 import { MonedaPipe } from 'asd';
-import { HttpService } from './http.service';
 import { AppAlertModalService } from '@components/app-alert-modal/app-alert-modal.service';
+import { IHttpService } from '@interfaces/http';
+import { HttpService } from './http.service';
 
 describe('HttpService', () => {
-	let service: HttpService;
+	let service: IHttpService;
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({

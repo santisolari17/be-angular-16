@@ -1,4 +1,4 @@
-import { TBackendHttpErrorResponse } from '../types/TBackendHttpError';
+import { TBackendHttpErrorResponse } from '@interfaces/http';
 
 export class ControlledBackendError extends Error {
 	public errorResponse: TBackendHttpErrorResponse;

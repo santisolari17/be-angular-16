@@ -2,19 +2,17 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map, catchError } from 'rxjs';
 import { TAppAlertModalMesage } from 'src/app/components/app-alert-modal/types/TAppModalParams';
-import { EHttpMethod } from './enums/EHttpMethod';
-import { ControlledBackendError } from './errors/ControlledBackendError';
-import { ControlledBackendException } from './errors/ControlledBackendException';
-import { THttpRequestParams } from './types/THttpRequestParams';
-import { THttpServiceResponse } from './types/THttpServiceResponse';
-import { EAppAlertModalType } from 'src/app/components/app-alert-modal/enums/EAppModalType';
+import { ControlledBackendError } from '../errors/ControlledBackendError';
+import { ControlledBackendException } from '../errors/ControlledBackendException';
+
 import { APPLICATION_NAME } from '@utils/constants';
 import { ParentInteractorService } from 'beche-utils-lib';
 import { AppAlertModalService } from '@components/app-alert-modal/app-alert-modal.service';
-import { EBackendResponseType } from './enums/EBackendResponseType';
+import { EAppAlertModalType } from '@components/app-alert-modal/enums/EAppModalType';
+import { EBackendResponseType, IHttpService, THttpRequestParams, THttpServiceResponse } from '@interfaces/http';
 
 @Injectable({ providedIn: 'root' })
-export class HttpService {
+export class HttpService implements IHttpService {
 	private _http = inject(HttpClient);
 	private _alertModalService = inject(AppAlertModalService);
 	private _parentInteractorService = inject(ParentInteractorService);
@@ -43,7 +41,7 @@ export class HttpService {
 	private _getRequestHttpParams(requestParams: THttpRequestParams): HttpParams {
 		let httpParams = new HttpParams();
 
-		if (requestParams.params && requestParams.method === EHttpMethod.GET) {
+		if (requestParams.params && requestParams.method === 'GET') {
 			Object.keys(requestParams.params).forEach(key => {
 				httpParams = httpParams.set(key, requestParams.params[key]);
 			});
@@ -57,11 +55,11 @@ export class HttpService {
 		const params = this._getRequestHttpParams(requestParams);
 
 		const httpClientMethodSwitch = {
-			[EHttpMethod.GET]: this._http.get<THttpServiceResponse<T>>(requestParams.url, { headers, params }),
-			[EHttpMethod.DELETE]: this._http.delete<THttpServiceResponse<T>>(requestParams.url, { headers, params }),
-			[EHttpMethod.POST]: this._http.post<THttpServiceResponse<T>>(requestParams.url, requestParams.body, { headers, params }),
-			[EHttpMethod.PUT]: this._http.put<THttpServiceResponse<T>>(requestParams.url, requestParams.body, { headers, params }),
-			[EHttpMethod.PATCH]: this._http.patch<THttpServiceResponse<T>>(requestParams.url, requestParams.body, { headers, params }),
+			GET: this._http.get<THttpServiceResponse<T>>(requestParams.url, { headers, params }),
+			DELETE: this._http.delete<THttpServiceResponse<T>>(requestParams.url, { headers, params }),
+			POST: this._http.post<THttpServiceResponse<T>>(requestParams.url, requestParams.body, { headers, params }),
+			PUT: this._http.put<THttpServiceResponse<T>>(requestParams.url, requestParams.body, { headers, params }),
+			PATCH: this._http.patch<THttpServiceResponse<T>>(requestParams.url, requestParams.body, { headers, params }),
 		};
 
 		return httpClientMethodSwitch[requestParams.method];

@@ -3,7 +3,7 @@ module.exports = {
   globalSetup: 'jest-preset-angular/global-setup',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
   moduleNameMapper: {
-    '^src/(.*)$': '<rootDir>/src/$1',
+    "@backend/(.*)": ["<rootDir>/src/app/backend/$1"],
     "@components/(.*)": ["<rootDir>/src/app/components/$1"],
     "@directives/(.*)": ["<rootDir>/src/app/directives/$1"],
     "@guards/(.*)": ["<rootDir>/src/app/guards/$1"],
@@ -17,5 +17,9 @@ module.exports = {
     "@env/(.*)": ["<rootDir>/src/environments/$1"],
     "^uuid$": "uuid"
   },
+  modulePathIgnorePatterns: [
+    "\\.mocks\\.ts$",
+  ],
   moduleDirectories: ['node_modules', 'src'],
+  coverageReporters:['lcov', 'text', 'text-summary']
 };

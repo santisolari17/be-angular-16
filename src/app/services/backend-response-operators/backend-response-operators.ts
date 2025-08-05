@@ -1,13 +1,11 @@
 import { inject, Injectable } from '@angular/core';
+import { HTTP_SERVICE_TOKEN, IHttpService, THttpRequestParams, THttpServiceResponse } from '@interfaces/http';
 import { ClassEntityValidatorService } from '@services/class-entity-validator/class-entity-validator.service';
-import { HttpService } from '@services/http/http.service';
-import { THttpRequestParams } from '@services/http/types/THttpRequestParams';
-import { THttpServiceResponse } from '@services/http/types/THttpServiceResponse';
 import { OperatorFunction, mergeMap, from, toArray, catchError, ObservedValueOf, of, Observable, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export abstract class BackendResponseOperators {
-	private _http = inject(HttpService);
+	private _http = inject<IHttpService>(HTTP_SERVICE_TOKEN);
 	private _entityValidator = inject(ClassEntityValidatorService);
 
 	protected execBackendCall<T>(requestParams: THttpRequestParams, ResponseEntity: new (params: unknown) => T): Observable<T> {

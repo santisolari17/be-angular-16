@@ -1,8 +1,7 @@
-import { EBackendResponseType } from '@services/http/enums/EBackendResponseType';
-import { THttpServiceResponse } from '@services/http/types/THttpServiceResponse';
 import { BFF_VERSION_PREFIX, ENDPOINTS } from '@utils/constants';
 import { TInitialFiltersBackendPayload } from '@backend/models/InitialFiltersResponse';
 import { StubbyData } from 'stubby';
+import { EBackendResponseType, THttpServiceResponse } from '@interfaces/http';
 
 const INITIAL_FILTERS_BACKEND_PAYLOAD_MOCK: TInitialFiltersBackendPayload = {
 	tieneAcceso: false,
