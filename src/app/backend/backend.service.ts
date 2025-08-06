@@ -1,14 +1,16 @@
 import { Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { InitialFiltersResponse } from './models/InitialFiltersResponse';
-import { BackendResponseOperators } from '@services/backend-response-operators/backend-response-operators';
 import { AccountsRequestBody } from './models/AccountsRequestBody';
 import { Account } from './models/Account';
-import { THttpRequestParams } from 'src/app/interfaces/http-service.interface';
+import { IBackendResponseOperators, THttpRequestParams } from '@interfaces';
+import { BACKEND_RESPONSE_OPERATORS_SERVICE_TOKEN } from '@services/service-tokens';
 
 @Injectable({ providedIn: 'root' })
-export class BackendService extends BackendResponseOperators {
+export class BackendService {
+	private _backendResponseOperators = inject<IBackendResponseOperators>(BACKEND_RESPONSE_OPERATORS_SERVICE_TOKEN);
+
 	public getInitialFilters(): Observable<InitialFiltersResponse> {
 		const requestParams: THttpRequestParams = {
 			requestLabel: 'getInitialFilters',
@@ -18,7 +20,7 @@ export class BackendService extends BackendResponseOperators {
 			etapa: environment.stage.getInitialFilters,
 		};
 
-		return this.execBackendCall(requestParams, InitialFiltersResponse);
+		return this._backendResponseOperators.execBackendCall(requestParams, InitialFiltersResponse);
 	}
 
 	public getAccounts(body: AccountsRequestBody): Observable<Account[]> {
@@ -31,6 +33,6 @@ export class BackendService extends BackendResponseOperators {
 			body,
 		};
 
-		return this.execBackendCallArrayResponse<Account>(requestParams, Account);
+		return this._backendResponseOperators.execBackendCallArrayResponse<Account>(requestParams, Account);
 	}
 }

@@ -1,15 +1,14 @@
 import { inject, Injectable } from '@angular/core';
-import { IHttpService, THttpRequestParams, THttpServiceResponse } from 'src/app/interfaces/http-service.interface';
-import { ClassEntityValidatorService } from '@services/class-entity-validator/class-entity-validator.service';
 import { OperatorFunction, mergeMap, from, toArray, catchError, ObservedValueOf, of, Observable, map } from 'rxjs';
-import { HTTP_SERVICE_TOKEN } from '@services/http/http-service.provider';
+import { IBackendResponseOperators, IClassEntityValidator, IHttpService, THttpRequestParams, THttpServiceResponse } from '@interfaces';
+import { CLASS_ENTITY_VALIDATOR_TOKEN, HTTP_SERVICE_TOKEN } from '@services/service-tokens';
 
 @Injectable({ providedIn: 'root' })
-export abstract class BackendResponseOperators {
+export abstract class BackendResponseOperatorsService implements IBackendResponseOperators {
 	private _http = inject<IHttpService>(HTTP_SERVICE_TOKEN);
-	private _entityValidator = inject(ClassEntityValidatorService);
+	private _entityValidator = inject<IClassEntityValidator>(CLASS_ENTITY_VALIDATOR_TOKEN);
 
-	protected execBackendCall<T>(requestParams: THttpRequestParams, ResponseEntity: new (params: unknown) => T): Observable<T> {
+	public execBackendCall<T>(requestParams: THttpRequestParams, ResponseEntity: new (params: unknown) => T): Observable<T> {
 		const backendCall$: Observable<THttpServiceResponse<T>> = this._http.httpRequest(requestParams);
 		return backendCall$.pipe(
 			map(response => new ResponseEntity(response.payload)),
@@ -17,7 +16,7 @@ export abstract class BackendResponseOperators {
 		);
 	}
 
-	protected execBackendCallArrayResponse<T>(requestParams: THttpRequestParams, ResponseEntity: new (params: unknown) => T): Observable<T[]> {
+	public execBackendCallArrayResponse<T>(requestParams: THttpRequestParams, ResponseEntity: new (params: unknown) => T): Observable<T[]> {
 		const backendCall$: Observable<THttpServiceResponse<T[]>> = this._http.httpRequest(requestParams);
 		return backendCall$.pipe(
 			map(response => response.payload.map(el => new ResponseEntity(el))),

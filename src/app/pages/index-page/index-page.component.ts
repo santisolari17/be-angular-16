@@ -6,8 +6,8 @@ import { Account } from '@backend/models/Account';
 import { AccountsRequestBody } from '@backend/models/AccountsRequestBody';
 import { OptionList } from '@backend/models/OptionList';
 import { SelectedAccountsListTestComponent } from '@components/selected-accounts-list-test/selected-accounts-list-test.component';
-import { ExcelGeneratorService } from '@services/excel-generator/excel-generator.service';
-import { TMakeExcelFileParams } from '@services/excel-generator/types/TMakeExcelFileParams';
+import { IExcelGenerator, TMakeExcelFileParams } from '@interfaces';
+import { EXCEL_GENERATOR_SERVICE_TOKEN } from '@services/excel-generator/excel-generator.provider';
 import { AppState } from '@store/app-state/app.state';
 import { EAppStateAction } from '@store/app-state/EAppStateAction';
 import { AsdButtonComponent, AsdCardComponent, AsdHeadtitleComponent, IconModule, InputModule, MonedaModule, SelectModule, TableModule } from 'asd';
@@ -33,7 +33,7 @@ export class IndexPageComponent implements OnInit {
 	private _route = inject(ActivatedRoute);
 	private _appState = inject(AppState);
 	private _backendService = inject(BackendService);
-	private _excelGenerator = inject(ExcelGeneratorService);
+	private _excelGenerator = inject<IExcelGenerator>(EXCEL_GENERATOR_SERVICE_TOKEN);
 
 	ngOnInit(): void {
 		const resolvedData: TAppResolverData = this._route.snapshot.data['indexPageResolver'];

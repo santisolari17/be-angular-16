@@ -1,6 +1,6 @@
 import { InjectionToken, Provider } from '@angular/core';
-import { IHttpService } from '@interfaces/http-service';
 import { HttpService } from './implementations/http.service';
+import { IHttpService } from '@interfaces';
 
 export const HTTP_SERVICE_TOKEN = new InjectionToken<IHttpService>('HttpService');
 

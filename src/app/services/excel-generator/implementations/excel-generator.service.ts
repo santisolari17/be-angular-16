@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ExcelCabecera, ExcelDocument, LoginData, ParentInteractorService } from 'beche-utils-lib';
-import { TMakeExcelFileParams } from './types/TMakeExcelFileParams';
-import { RowsNotSameLengthError } from './errors/RowsNotSameLength.error';
-import { HeaderLengthNotSameAsRowsError } from './errors/HeaderLengthNotSameAsRows.error';
-import { TCorpotateHeaderDataBlock } from './types/TCorpotateHeaderDataBlock';
-import { TServiceHeaderData } from './types/TServiceHeaderData';
 import { environment } from '@env/environment';
+import { IExcelGenerator, TCorpotateHeaderDataBlock, TMakeExcelFileParams, TServiceHeaderData } from '@interfaces';
+import { HeaderLengthNotSameAsRowsError } from '../errors/HeaderLengthNotSameAsRows.error';
+import { RowsNotSameLengthError } from '../errors/RowsNotSameLength.error';
 
 @Injectable({
 	providedIn: 'root',
 })
-export class ExcelGeneratorService {
+export class ExcelGeneratorService implements IExcelGenerator {
 	private _mockLoginData = !environment.production;
 	private _driver = new ExcelDocument();
 	private _corporateHeader: ExcelCabecera;

@@ -1,7 +1,7 @@
-import { TReducerFunction, TReducerAction } from '@services/application-state/application-state.models';
 import { TAppState } from '../TAppState';
 import { InitialFiltersResponse } from '@backend/models/InitialFiltersResponse';
 import { EAppStateAction } from '../EAppStateAction';
+import { TReducerAction, TReducerFunction } from 'src/app/services/application-state/application-state.models';
 
 const reducerFn: TReducerFunction<TAppState, InitialFiltersResponse> = (state, payload) => {
 	return { ...state, initialFiltersResponse: payload };
