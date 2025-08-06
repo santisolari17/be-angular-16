@@ -6,14 +6,13 @@ import { Account } from '@backend/models/Account';
 import { AccountsRequestBody } from '@backend/models/AccountsRequestBody';
 import { OptionList } from '@backend/models/OptionList';
 import { SelectedAccountsListTestComponent } from '@components/selected-accounts-list-test/selected-accounts-list-test.component';
-import { IExcelGenerator, TMakeExcelFileParams } from '@interfaces';
+import { IExcelGenerator, TMakeExcelFileParams } from 'src/app/interfaces/_index_';
 import { EXCEL_GENERATOR_SERVICE_TOKEN } from '@services/excel-generator/excel-generator.provider';
-import { AppState } from '@store/app-state/app.state';
-import { EAppStateAction } from '@store/app-state/EAppStateAction';
 import { AsdButtonComponent, AsdCardComponent, AsdHeadtitleComponent, IconModule, InputModule, MonedaModule, SelectModule, TableModule } from 'asd';
 import dayjs from 'dayjs';
 import { take } from 'rxjs';
 import { TAppResolverData } from 'src/app/app.resolver';
+import { AppState, EAppStateAction } from '@store/slices/app-state/app.state';
 
 const ARANDANO = [AsdButtonComponent, AsdCardComponent, SelectModule, InputModule, TableModule, MonedaModule, AsdHeadtitleComponent, IconModule];
 

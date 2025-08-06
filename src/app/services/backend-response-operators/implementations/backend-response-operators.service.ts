@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { OperatorFunction, mergeMap, from, toArray, catchError, ObservedValueOf, of, Observable, map } from 'rxjs';
-import { IBackendResponseOperators, IClassEntityValidator, IHttpService, THttpRequestParams, THttpServiceResponse } from '@interfaces';
+import { IBackendResponseOperators, IClassEntityValidator, IHttpService, THttpRequestParams, THttpServiceResponse } from 'src/app/interfaces/_index_';
 import { CLASS_ENTITY_VALIDATOR_TOKEN, HTTP_SERVICE_TOKEN } from '@services/service-tokens';
 
 @Injectable({ providedIn: 'root' })

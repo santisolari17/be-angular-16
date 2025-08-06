@@ -2,9 +2,8 @@ import { Component, computed, inject, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AsdAlertComponent, AsdButtonComponent, AsdCardComponent, IconModule, InputModule, MonedaModule, SelectModule, TableModule } from 'asd';
 import { Account } from '@backend/models/Account';
-import { AppState } from '@store/app-state/app.state';
 import * as _ from 'lodash';
-import { EAppStateAction } from '@store/app-state/EAppStateAction';
+import { AppState, EAppStateAction } from '@store/slices/app-state/app.state';
 
 const ARANDANO = [AsdCardComponent, TableModule, SelectModule, InputModule, MonedaModule, AsdAlertComponent, IconModule, AsdButtonComponent];
 

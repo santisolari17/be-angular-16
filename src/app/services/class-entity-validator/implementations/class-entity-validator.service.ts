@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { validate, ValidationError as ClassValidatorError } from 'class-validator';
 import { forIn } from 'lodash';
 import { TValidationErrorDefinition } from '../errors/entity-validation-error';
-import { IClassEntityValidator } from '@interfaces';
+import { IClassEntityValidator } from 'src/app/interfaces/_index_';
 
 @Injectable({ providedIn: 'root' })
 export class ClassEntityValidatorService implements IClassEntityValidator {

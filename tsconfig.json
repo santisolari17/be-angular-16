@@ -21,7 +21,7 @@
 			"@guards/*": ["src/app/guards/*"],
 			"@interceptors/*": ["src/app/interceptors/*"],
 			"@services/*": ["src/app/services/*"],
-			"@interfaces": ["src/app/interfaces/index.ts"],
+			"@interfaces": ["src/app/interfaces/_index_.ts"],
 			"@mocks/*": ["src/app/mocks/*"],
 			"@pages/*": ["src/app/pages/*"],
 			"@pipes/*": ["src/app/pipes/*"],

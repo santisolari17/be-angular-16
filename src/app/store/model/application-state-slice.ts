@@ -1,5 +1,5 @@
-import { computed, signal, Signal, WritableSignal } from '@angular/core';
-import { TReducerAction, TActionDispatch } from './application-state.models';
+import { Signal, WritableSignal, signal, computed } from '@angular/core';
+import { TReducerAction, TActionDispatch } from '@interfaces';
 
 export abstract class ApplicationStateSlice<T> {
 	readonly state: Signal<T>;

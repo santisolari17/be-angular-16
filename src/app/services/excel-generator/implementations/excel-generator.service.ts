@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ExcelCabecera, ExcelDocument, LoginData, ParentInteractorService } from 'beche-utils-lib';
 import { environment } from '@env/environment';
-import { IExcelGenerator, TCorpotateHeaderDataBlock, TMakeExcelFileParams, TServiceHeaderData } from '@interfaces';
+import { IExcelGenerator, TCorpotateHeaderDataBlock, TMakeExcelFileParams, TServiceHeaderData } from 'src/app/interfaces/_index_';
 import { HeaderLengthNotSameAsRowsError } from '../errors/HeaderLengthNotSameAsRows.error';
 import { RowsNotSameLengthError } from '../errors/RowsNotSameLength.error';
 

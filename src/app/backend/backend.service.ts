@@ -4,7 +4,7 @@ import { environment } from '@env/environment';
 import { InitialFiltersResponse } from './models/InitialFiltersResponse';
 import { AccountsRequestBody } from './models/AccountsRequestBody';
 import { Account } from './models/Account';
-import { IBackendResponseOperators, THttpRequestParams } from '@interfaces';
+import { IBackendResponseOperators, THttpRequestParams } from 'src/app/interfaces/_index_';
 import { BACKEND_RESPONSE_OPERATORS_SERVICE_TOKEN } from '@services/service-tokens';
 
 @Injectable({ providedIn: 'root' })

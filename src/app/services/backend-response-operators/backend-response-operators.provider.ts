@@ -1,6 +1,6 @@
 import { InjectionToken, Provider } from '@angular/core';
 import { BackendResponseOperatorsService } from './implementations/backend-response-operators.service';
-import { IBackendResponseOperators } from '@interfaces';
+import { IBackendResponseOperators } from 'src/app/interfaces/_index_';
 
 export const BACKEND_RESPONSE_OPERATORS_SERVICE_TOKEN = new InjectionToken<IBackendResponseOperators>('BackendResponseOperators');
 

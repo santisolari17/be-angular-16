@@ -1,5 +1,5 @@
 import { InjectionToken, Provider } from '@angular/core';
-import { IExcelGenerator } from '@interfaces';
+import { IExcelGenerator } from 'src/app/interfaces/_index_';
 import { ExcelGeneratorService } from './implementations/excel-generator.service';
 
 export const EXCEL_GENERATOR_SERVICE_TOKEN = new InjectionToken<IExcelGenerator>('ExcelGenerator');
