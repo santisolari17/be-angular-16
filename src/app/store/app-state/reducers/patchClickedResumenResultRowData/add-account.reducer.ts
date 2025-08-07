@@ -1,6 +1,7 @@
 import { Account } from '@backend/models/Account';
-import { EAppStateAction, TAppState } from '../app.state';
 import { TReducerFunction, TReducerAction } from '@interfaces';
+import { EAppStateAction } from '@store/app-state/actions/EAppStateAction';
+import { TAppState } from '@store/app-state/model/TAppState';
 
 const reducerFn: TReducerFunction<TAppState, Account> = (state, payload) => {
 	const found = state.selectedAccounts.find(account => account.id === payload.id);

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AsdAlertComponent, AsdButtonComponent, AsdCardComponent, IconModule, InputModule, MonedaModule, SelectModule, TableModule } from 'asd';
 import { Account } from '@backend/models/Account';
 import * as _ from 'lodash';
-import { AppState, EAppStateAction } from '@store/slices/app-state/app.state';
+import { AppState, EAppStateAction } from '@store/index';
 
 const ARANDANO = [AsdCardComponent, TableModule, SelectModule, InputModule, MonedaModule, AsdAlertComponent, IconModule, AsdButtonComponent];
 
