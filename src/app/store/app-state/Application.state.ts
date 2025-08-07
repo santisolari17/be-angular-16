@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { TAppState } from './model/TAppState';
-import { patchInitialFiltersReducerAction } from './reducers/patchInitialFilters/patchInitialFilters.reducer';
-import { deleteAccountReducerAction } from './reducers/clearResumenSearch/delete-account.reducer';
-import { ApplicationStateSlice } from '@store/model/application-state-slice';
+import { addAccountReducerAction } from './reducers/add-account/add-account.reducer';
+import { deleteAccountReducerAction } from './reducers/delete-account/delete-account.reducer';
+import { patchInitialFiltersReducerAction } from './reducers/patch-initial-filters/patchInitialFilters.reducer';
+import { ApplicationStateSlice } from '@store/application-state-slice';
+import { TAppState } from './TAppState';
 
 const INITIAL_STATE: TAppState = {
 	initialFiltersResponse: null,
@@ -12,6 +13,6 @@ const INITIAL_STATE: TAppState = {
 @Injectable({ providedIn: 'root' })
 export class AppState extends ApplicationStateSlice<TAppState> {
 	constructor() {
-		super(INITIAL_STATE, [patchInitialFiltersReducerAction, deleteAccountReducerAction]);
+		super(INITIAL_STATE, [patchInitialFiltersReducerAction, deleteAccountReducerAction, addAccountReducerAction]);
 	}
 }

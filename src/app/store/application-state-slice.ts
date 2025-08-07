@@ -1,7 +1,7 @@
 import { computed, signal, Signal, WritableSignal } from '@angular/core';
-import { TReducerAction, TActionDispatch } from '@interfaces';
+import { TReducerAction, TActionDispatch, IApplicationStateSlice } from '@interfaces';
 
-export abstract class ApplicationStateSlice<T> {
+export abstract class ApplicationStateSlice<T> implements IApplicationStateSlice<T> {
 	readonly state: Signal<T>;
 	private _state: WritableSignal<T>;
 	private _reducerActions: TReducerAction<T>[];

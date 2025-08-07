@@ -12,7 +12,8 @@ import { AsdButtonComponent, AsdCardComponent, AsdHeadtitleComponent, IconModule
 import dayjs from 'dayjs';
 import { take } from 'rxjs';
 import { TAppResolverData } from 'src/app/app.resolver';
-import { AppState, EAppStateAction } from '@store/index';
+import { AppState } from '@store/app-state/Application.state';
+import { EAppStateAction } from '@store/app-state/EAppStateActions';
 
 const ARANDANO = [AsdButtonComponent, AsdCardComponent, SelectModule, InputModule, TableModule, MonedaModule, AsdHeadtitleComponent, IconModule];
 
