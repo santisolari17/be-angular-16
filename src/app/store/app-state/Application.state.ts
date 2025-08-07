@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { addAccountReducerAction } from './reducers/add-account/add-account.reducer';
 import { deleteAccountReducerAction } from './reducers/delete-account/delete-account.reducer';
 import { patchInitialFiltersReducerAction } from './reducers/patch-initial-filters/patchInitialFilters.reducer';
-import { ApplicationStateSlice } from '@store/application-state-slice';
 import { TAppState } from './TAppState';
+import { ApplicationStateSlice } from '../application-state-slice';
 
 const INITIAL_STATE: TAppState = {
 	initialFiltersResponse: null,

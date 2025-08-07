@@ -27,7 +27,7 @@
 			"@pipes/*": ["src/app/pipes/*"],
 			"@service/providers": ["src/app/services/service-providers.ts"],
 			"@service/tokens": ["src/app/services/service-tokens.ts"],
-			"@store/*": ["src/app/store/*"],
+			"@store": ["src/app/store/_index_.ts"],
 			"@utils/*": ["src/app/utils/*"],
 			"@env/*": ["src/environments/*"]
 		}
