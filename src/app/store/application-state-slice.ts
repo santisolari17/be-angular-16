@@ -1,5 +1,6 @@
 import { computed, signal, Signal, WritableSignal } from '@angular/core';
 import { TReducerAction, TActionDispatch, IApplicationStateSlice } from '@interfaces';
+import _ from 'lodash';
 
 export abstract class ApplicationStateSlice<T> implements IApplicationStateSlice<T> {
 	readonly state: Signal<T>;
@@ -8,12 +9,11 @@ export abstract class ApplicationStateSlice<T> implements IApplicationStateSlice
 
 	constructor(initialState: T, reducerActions: TReducerAction<T>[]) {
 		this._state = signal(initialState);
-		this.state = computed(() => this._state());
 		this._reducerActions = reducerActions;
 	}
 
 	public select<K extends keyof T>(stateProperty: K): Signal<T[K]> {
-		return computed(() => this._state()[stateProperty]);
+		return computed(() => _.cloneDeep(this._state()[stateProperty]));
 	}
 
 	public dispatchAction<K>(dispatched: TActionDispatch<K>): void {
