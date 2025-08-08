@@ -1,8 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AppAlertModalModule } from '@components/app-alert-modal/app-alert-modal.module';
+import { Component, OnInit, inject } from '@angular/core';
+
 import { ParentInteractorService } from 'beche-utils-lib';
+
 import { environment } from 'src/environments/environment';
+import { AppAlertModalModule } from './core/components/app-alert-modal/app-alert-modal.module';
 
 @Component({
 	selector: 'be-root',

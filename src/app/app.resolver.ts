@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
-import { BackendService } from '@backend/backend.service';
-import { InitialFiltersResponse } from '@backend/models/InitialFiltersResponse';
+import { InitialFiltersResponse } from '@backend/models';
+import { BackendService } from '@backend/service';
 import { forkJoin, Observable } from 'rxjs';
 
 export type TAppResolverData = {

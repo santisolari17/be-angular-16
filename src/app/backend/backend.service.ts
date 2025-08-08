@@ -1,11 +1,13 @@
-import { Observable } from 'rxjs';
 import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { environment } from '@env/environment';
-import { InitialFiltersResponse } from './models/InitialFiltersResponse';
-import { AccountsRequestBody } from './models/AccountsRequestBody';
+import { BACKEND_RESPONSE_OPERATORS_SERVICE_TOKEN } from '@core/services';
+import { IBackendResponseOperators, THttpRequestParams } from '@core/interfaces';
+
 import { Account } from './models/Account';
-import { IBackendResponseOperators, THttpRequestParams } from 'src/app/interfaces/_index_';
-import { BACKEND_RESPONSE_OPERATORS_SERVICE_TOKEN } from '@services/service-tokens';
+import { AccountsRequestBody } from './models/AccountsRequestBody';
+import { InitialFiltersResponse } from './models/InitialFiltersResponse';
 
 @Injectable({ providedIn: 'root' })
 export class BackendService {

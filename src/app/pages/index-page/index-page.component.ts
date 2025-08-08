@@ -1,25 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BackendService } from '@backend/backend.service';
-import { Account } from '@backend/models/Account';
-import { AccountsRequestBody } from '@backend/models/AccountsRequestBody';
-import { OptionList } from '@backend/models/OptionList';
-import { SelectedAccountsListTestComponent } from '@components/selected-accounts-list-test/selected-accounts-list-test.component';
-import { IExcelGenerator, TMakeExcelFileParams } from 'src/app/interfaces/_index_';
-import { EXCEL_GENERATOR_SERVICE_TOKEN } from '@services/excel-generator/excel-generator.provider';
-import { AsdButtonComponent, AsdCardComponent, AsdHeadtitleComponent, IconModule, InputModule, MonedaModule, SelectModule, TableModule } from 'asd';
+import { Component, OnInit, WritableSignal, signal, Signal, inject, computed } from '@angular/core';
+
 import dayjs from 'dayjs';
 import { take } from 'rxjs';
+import { AsdButtonComponent, AsdCardComponent, SelectModule, InputModule, TableModule, MonedaModule, AsdHeadtitleComponent, IconModule } from 'asd';
+
+import { BackendService } from '@backend/service';
+import { AppStore, EAppStoreAction } from '@store';
+import { IExcelGenerator, TMakeExcelFileParams } from '@core/interfaces';
+import { Account, AccountsRequestBody, OptionList } from '@backend/models';
+import { SelectedAccountsListTestComponent } from '@components/selected-accounts-list-test/selected-accounts-list-test.component';
+
 import { TAppResolverData } from 'src/app/app.resolver';
-import { AppState, EAppStateAction } from '@store';
+import { EXCEL_GENERATOR_SERVICE_TOKEN } from 'src/app/core/services/excel-generator/excel-generator.provider';
 
 const ARANDANO = [AsdButtonComponent, AsdCardComponent, SelectModule, InputModule, TableModule, MonedaModule, AsdHeadtitleComponent, IconModule];
+const APP_COMPONENTS = [SelectedAccountsListTestComponent];
 
 @Component({
 	selector: 'be-index-page',
 	standalone: true,
-	imports: [CommonModule, SelectedAccountsListTestComponent, ...ARANDANO],
+	imports: [CommonModule, ...APP_COMPONENTS, ...ARANDANO],
 	templateUrl: './index-page.component.html',
 	styleUrls: ['./index-page.component.scss'],
 })
@@ -30,13 +32,13 @@ export class IndexPageComponent implements OnInit {
 	public selectedOption: WritableSignal<OptionList> = signal(null);
 
 	private _route = inject(ActivatedRoute);
-	private _appState = inject(AppState);
+	private _appStore = inject(AppStore);
 	private _backendService = inject(BackendService);
 	private _excelGenerator = inject<IExcelGenerator>(EXCEL_GENERATOR_SERVICE_TOKEN);
 
 	ngOnInit(): void {
 		const resolvedData: TAppResolverData = this._route.snapshot.data['indexPageResolver'];
-		this._appState.dispatchAction({ type: EAppStateAction.PatchInitialFilters, payload: resolvedData.initialFilters });
+		this._appStore.dispatchAction({ type: EAppStoreAction.PatchInitialFilters, payload: resolvedData.initialFilters });
 		this.options = computed(() => resolvedData.initialFilters.optionList);
 		this.selectedOption.set(this.options()[0]);
 	}
@@ -55,7 +57,7 @@ export class IndexPageComponent implements OnInit {
 	}
 
 	public dataClickedHanlder(dataRow: Account): void {
-		this._appState.dispatchAction({ type: EAppStateAction.AddAccount, payload: dataRow });
+		this._appStore.dispatchAction({ type: EAppStoreAction.AddAccount, payload: dataRow });
 	}
 
 	public optionSelectedHandler(option: OptionList): void {

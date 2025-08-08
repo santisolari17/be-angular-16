@@ -1,9 +1,10 @@
-import { Account } from '@backend/models/Account';
-import { TReducerFunction, TReducerAction } from '@interfaces';
-import { TAppState } from '../../TAppState';
-import { EAppStateAction } from '../../EAppStateAction';
+import { Account } from '@backend/models';
+import { TReducerFunction, TReducerAction } from '@core/interfaces';
 
-const reducerFn: TReducerFunction<TAppState, Account> = (state, payload) => {
+import { TAppStore } from '../../TAppStore';
+import { EAppStoreAction } from '../../EAppStoreAction';
+
+const reducerFn: TReducerFunction<TAppStore, Account> = (state, payload) => {
 	const found = state.selectedAccounts.find(account => account.id === payload.id);
 
 	if (found) {
@@ -14,7 +15,7 @@ const reducerFn: TReducerFunction<TAppState, Account> = (state, payload) => {
 	return { ...state, selectedAccounts: newAccountArray };
 };
 
-export const addAccountReducerAction: TReducerAction<TAppState, Account> = {
-	type: EAppStateAction.AddAccount,
+export const addAccountReducerAction: TReducerAction<TAppStore, Account> = {
+	type: EAppStoreAction.AddAccount,
 	reducerFn,
 };

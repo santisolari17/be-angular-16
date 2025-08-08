@@ -1,13 +1,14 @@
-import { Account } from '@backend/models/Account';
-import { TReducerFunction, TReducerAction } from '@interfaces';
-import { TAppState } from '../../TAppState';
-import { EAppStateAction } from '../../EAppStateAction';
+import { Account } from '@backend/models';
+import { TReducerFunction, TReducerAction } from '@core/interfaces';
 
-const reducerFn: TReducerFunction<TAppState, Account> = (state, payload) => {
+import { TAppStore } from '../../TAppStore';
+import { EAppStoreAction } from '../../EAppStoreAction';
+
+const reducerFn: TReducerFunction<TAppStore, Account> = (state, payload) => {
 	return { ...state, selectedAccounts: state.selectedAccounts.filter(account => account.id !== payload.id) };
 };
 
-export const deleteAccountReducerAction: TReducerAction<TAppState, Account> = {
-	type: EAppStateAction.DeleteAccount,
+export const deleteAccountReducerAction: TReducerAction<TAppStore, Account> = {
+	type: EAppStoreAction.DeleteAccount,
 	reducerFn,
 };

@@ -1,8 +1,9 @@
 import { faker } from '@faker-js/faker';
-import { TAccountsBackendPayload } from '@backend/models/Account';
 import { StubbyData } from 'stubby';
+
+import { TAccountsBackendPayload } from '@backend/models';
 import { BFF_VERSION_PREFIX, ENDPOINTS } from '@utils/constants';
-import { THttpServiceResponse, EBackendResponseType } from 'src/app/interfaces/_index_';
+import { EBackendResponseType, THttpServiceResponse } from '@core/interfaces';
 
 const MOCKS_QUANTITY = 100;
 

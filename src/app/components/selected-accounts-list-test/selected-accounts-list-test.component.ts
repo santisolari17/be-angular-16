@@ -1,9 +1,11 @@
-import { Component, computed, inject, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AsdAlertComponent, AsdButtonComponent, AsdCardComponent, IconModule, InputModule, MonedaModule, SelectModule, TableModule } from 'asd';
-import { Account } from '@backend/models/Account';
+import { Component, computed, inject, Signal } from '@angular/core';
+
 import * as _ from 'lodash';
-import { AppState, EAppStateAction } from '@store';
+import { AsdAlertComponent, AsdButtonComponent, AsdCardComponent, IconModule, InputModule, MonedaModule, SelectModule, TableModule } from 'asd';
+
+import { Account } from '@backend/models';
+import { AppStore, EAppStoreAction } from '@store';
 
 const ARANDANO = [AsdCardComponent, TableModule, SelectModule, InputModule, MonedaModule, AsdAlertComponent, IconModule, AsdButtonComponent];
 
@@ -19,13 +21,13 @@ export class SelectedAccountsListTestComponent {
 	public accountTotals: Signal<{ [currency: string]: number }>;
 	public selected: Signal<boolean>;
 
-	private _appState = inject(AppState);
+	private _appStore = inject(AppStore);
 
 	constructor() {
-		this.datasource = computed(() => Object.values(_.groupBy(this._appState.select('selectedAccounts')(), 'currency')));
-		this.selected = computed(() => this._appState.select('selectedAccounts')().length > 0);
+		this.datasource = computed(() => Object.values(_.groupBy(this._appStore.select('selectedAccounts')(), 'currency')));
+		this.selected = computed(() => this._appStore.select('selectedAccounts')().length > 0);
 		this.accountTotals = computed(() =>
-			_.chain(this._appState.select('selectedAccounts')())
+			_.chain(this._appStore.select('selectedAccounts')())
 				.groupBy('currency')
 				.mapValues(accounts => _.sumBy(accounts, 'balance'))
 				.value()
@@ -33,6 +35,6 @@ export class SelectedAccountsListTestComponent {
 	}
 
 	public deleteAccount(account: Account): void {
-		this._appState.dispatchAction({ type: EAppStateAction.DeleteAccount, payload: account });
+		this._appStore.dispatchAction({ type: EAppStoreAction.DeleteAccount, payload: account });
 	}
 }
