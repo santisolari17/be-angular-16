@@ -18,6 +18,16 @@ export type TBackendHttpErrorResponse = {
 	ok: boolean;
 };
 
+export type THttpHeaders = {
+	headerName: string;
+	value: string | string[];
+};
+
+export type THttpQueryParams = {
+	paramName: string;
+	value: string;
+};
+
 export type THttpRequestParams = {
 	requestLabel: string;
 	url: string;
@@ -26,7 +36,8 @@ export type THttpRequestParams = {
 	method: THttpMethod;
 	body?: unknown;
 	secuencia?: string;
-	params?: unknown;
+	queryParams?: THttpQueryParams[];
+	headers?: THttpHeaders[];
 };
 
 export type THttpServiceResponse<T> = {

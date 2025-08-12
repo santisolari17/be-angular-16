@@ -1,51 +1,54 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map, catchError } from 'rxjs';
-import { ControlledBackendError } from '../errors/ControlledBackendError';
-import { ControlledBackendException } from '../errors/ControlledBackendException';
 
 import { APPLICATION_NAME } from '@utils/constants';
-import { ParentInteractorService } from 'beche-utils-lib';
-import { EBackendResponseType, IHttpService, THttpRequestParams, THttpServiceResponse } from '@core/interfaces';
-import { AppAlertModalService, EAppAlertModalType, TAppAlertModalMesage } from '@core/components';
+import { IHttpService, THttpHeaders, THttpRequestParams, THttpServiceResponse } from '@core/interfaces';
+import { IHttpErrorHandler } from 'src/app/core/interfaces/http-error-handler.interface';
+import { HTTP_ERROR_HANDLER_TOKEN } from '@core/services';
 
 @Injectable({ providedIn: 'root' })
 export class HttpService implements IHttpService {
 	private _http = inject(HttpClient);
-	private _alertModalService = inject(AppAlertModalService);
-	private _parentInteractorService = inject(ParentInteractorService);
+	private _httpErrorHanlder = inject<IHttpErrorHandler>(HTTP_ERROR_HANDLER_TOKEN);
 
 	public httpRequest<T>(requestParams: THttpRequestParams): Observable<THttpServiceResponse<T>> {
 		return this._getHttpRequestObject<T>(requestParams).pipe(
 			map(response => {
-				this._catch200CodeResponseError(response);
+				this._httpErrorHanlder.catch200CodeResponseError(response);
 				return response;
 			}),
-			catchError((error: ControlledBackendException | Error) => {
-				this._backendErrorHandler(error);
+			catchError((error: Error) => {
+				this._httpErrorHanlder.handleHttpError(error);
 				throw error;
 			})
 		);
 	}
 
 	private _getRequestHttpHeaders(requestParams: THttpRequestParams): HttpHeaders {
-		return new HttpHeaders()
-			.set('funcionalidad', requestParams.funcionalidad)
-			.set('config-loader', 'true')
-			.set('etapa', requestParams.etapa)
-			.set('nombreAplicacion', APPLICATION_NAME);
+		const fixedHeaders: THttpHeaders[] = [
+			{ headerName: 'funcionalidad', value: requestParams.funcionalidad },
+			{ headerName: 'config-loader', value: 'true' },
+			{ headerName: 'etapa', value: requestParams.etapa },
+			{ headerName: 'nombreAplicacion', value: APPLICATION_NAME },
+		];
+		const customHeaders = requestParams.headers || [];
+
+		const headersDefinition: THttpHeaders[] = [...fixedHeaders, ...customHeaders];
+
+		const httpHeaders = headersDefinition.reduce((headers, { headerName, value }) => headers.set(headerName, value), new HttpHeaders());
+
+		return httpHeaders;
 	}
 
 	private _getRequestHttpParams(requestParams: THttpRequestParams): HttpParams {
-		let httpParams = new HttpParams();
+		const queryParams = requestParams.queryParams || [];
 
-		if (requestParams.params && requestParams.method === 'GET') {
-			Object.keys(requestParams.params).forEach(key => {
-				httpParams = httpParams.set(key, requestParams.params[key]);
-			});
+		if (queryParams.length > 0) {
+			return queryParams.reduce((params, { paramName, value }) => params.set(paramName, value), new HttpParams());
 		}
 
-		return httpParams;
+		return new HttpParams();
 	}
 
 	private _getHttpRequestObject<T>(requestParams: THttpRequestParams): Observable<THttpServiceResponse<T>> {
@@ -61,73 +64,5 @@ export class HttpService implements IHttpService {
 		};
 
 		return httpClientMethodSwitch[requestParams.method];
-	}
-
-	private _catch200CodeResponseError<T>(response: THttpServiceResponse<T>): void {
-		if (response.resultado !== EBackendResponseType.Success) {
-			throw new ControlledBackendException(response);
-		}
-	}
-
-	private _backendErrorHandler(error: ControlledBackendException | Error): void {
-		const defaultErrorMessage: TAppAlertModalMesage = {
-			text: 'No se pudo completar su requerimiento. Por favor intente más tarde. Si el problema persiste, por favor contactar a Soporte Internet 600 660 0033.',
-			topMarginLevel: 0,
-		};
-		const defaultOperationCodeMessageA: TAppAlertModalMesage = { text: 'ERR/A', topMarginLevel: 2 };
-		const defaultOperationCodeMessageB: TAppAlertModalMesage = { text: 'ERR/B', topMarginLevel: 2 };
-
-		try {
-			if (error instanceof ControlledBackendException) {
-				const clientMessage: TAppAlertModalMesage = error.httpResponse.mensajeNegocio
-					? { text: error.httpResponse.mensajeNegocio, topMarginLevel: 0 }
-					: defaultErrorMessage;
-				const operationCodeMessage: TAppAlertModalMesage = error.httpResponse.codigoOperacion
-					? { text: error.httpResponse.codigoOperacion, topMarginLevel: 2 }
-					: defaultOperationCodeMessageA;
-
-				this._alertModalService.showAppAlert({
-					messages: [clientMessage, operationCodeMessage],
-					modalType: error.httpResponse.resultado === EBackendResponseType.OperationalError ? EAppAlertModalType.Warning : EAppAlertModalType.Error,
-					title: 'Error',
-				});
-				this._hideBeLoader();
-
-				return;
-			}
-
-			if (error instanceof Error) {
-				const backendError = new ControlledBackendError(JSON.parse(error.message));
-				const clientMessage: TAppAlertModalMesage = backendError.errorResponse.error.mensajeNegocio
-					? { text: backendError.errorResponse.error.mensajeNegocio, topMarginLevel: 0 }
-					: defaultErrorMessage;
-				const operationCodeMessage: TAppAlertModalMesage = backendError.errorResponse.error.codigoOperacion
-					? { text: backendError.errorResponse.error.codigoOperacion, topMarginLevel: 2 }
-					: defaultOperationCodeMessageA;
-
-				this._alertModalService.showAppAlert({
-					messages: [clientMessage, operationCodeMessage],
-					modalType:
-						backendError.errorResponse.error.resultado === EBackendResponseType.OperationalError
-							? EAppAlertModalType.Warning
-							: EAppAlertModalType.Error,
-					title: 'Error',
-				});
-				this._hideBeLoader();
-
-				return;
-			}
-		} catch (error) {
-			this._alertModalService.showAppAlert({
-				messages: [defaultErrorMessage, defaultOperationCodeMessageB],
-				modalType: EAppAlertModalType.Error,
-				title: 'Error',
-			});
-			this._hideBeLoader();
-		}
-	}
-
-	private _hideBeLoader(): void {
-		this._parentInteractorService.hideLoading();
 	}
 }
