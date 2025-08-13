@@ -5,7 +5,7 @@ import { TAccountsBackendPayload } from '@backend/models';
 import { BFF_VERSION_PREFIX, ENDPOINTS } from '@utils/constants';
 import { EBackendResponseType, THttpServiceResponse } from '@core/interfaces';
 
-const MOCKS_QUANTITY = 100;
+const MOCKS_QUANTITY = 4;
 
 function generateMocks(count: number): TAccountsBackendPayload[] {
 	return Array.from({ length: count }, () => ({
@@ -28,7 +28,7 @@ const ACCOUNTS_RESPONSE_FIXED_MOCKS: TAccountsBackendPayload[] = [
 		numeroCuenta: '0098766122',
 		tarjetaCredito: 'mastercard',
 		moneda: 'CLP',
-		saldo: 10000,
+		saldo: 0,
 		ultimaTransaccion: '2025-03-31T06:12:24.677Z',
 	},
 ];

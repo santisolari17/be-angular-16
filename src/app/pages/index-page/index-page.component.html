@@ -45,13 +45,13 @@
 					<asd-table hideSeachInput [data]="tableDatasource()">
 						<ng-template asdTable="head">
 							<tr>
-								<th>Número</th>
-								<th>Titular</th>
-								<th>Cuenta</th>
-								<th>Tarjeta Crédito</th>
-								<th>Moneda</th>
-								<th style="min-width: 110px">Saldo</th>
-								<th>Ultima Transaccion</th>
+								<th sort sortBy="accountNumber">Número</th>
+								<th sort sortBy="accountOwner">Titular</th>
+								<th sort sortBy="accountName">Cuenta</th>
+								<th sort sortBy="creditCardIssuer">Tarjeta Crédito</th>
+								<th sort sortBy="currency">Moneda</th>
+								<th style="min-width: 110px" sort sortBy="balance">Saldo</th>
+								<th sort sortBy="lastTransactionDate">Ultima Transaccion</th>
 							</tr>
 						</ng-template>
 						<ng-template let-rows asdTable="body">
