@@ -3,3 +3,4 @@ export * from './backend-response.operators.interface';
 export * from './class-entity-validator.interface';
 export * from './excel-generator.interface';
 export * from './application-state-slice.interface';
+export * from './focus-service.interface';
