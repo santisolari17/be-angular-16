@@ -1,6 +1,5 @@
 import { signal } from '@angular/core';
-import { EAppAlertModalType } from '../enums/EAppModalType';
-import { TAppAlertModalParams } from '../types/TAppModalParams';
+import { EAppAlertModalType, TAppAlertModalParams } from '../../../interfaces/app-alert-modal-service.interface';
 
 export const MOCK_INITIAL_ALERT_CONFIG: TAppAlertModalParams = {
 	modalType: EAppAlertModalType.Info,

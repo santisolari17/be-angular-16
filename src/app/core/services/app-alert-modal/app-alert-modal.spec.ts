@@ -1,12 +1,18 @@
-import { AppAlertModalService } from '../app-alert-modal.service';
-import { EAppAlertModalType } from '../enums/EAppModalType';
-import { TAppAlertModalParams } from '../types/TAppModalParams';
+import { TestBed } from '@angular/core/testing';
+import { EAppAlertModalType, IAppAlertModalService, TAppAlertModalParams } from '../../interfaces/app-alert-modal-service.interface';
+import { APP_ALERT_MODAL_SERVICE_PROVIDER, APP_ALERT_MODAL_SERVICE_TOKEN } from './app-alert-modal.provider';
 
 describe('AppAlertModalService', () => {
-	let service: AppAlertModalService;
+	let service: IAppAlertModalService;
 
 	beforeEach(() => {
-		service = new AppAlertModalService();
+		TestBed.configureTestingModule({
+			providers: [APP_ALERT_MODAL_SERVICE_PROVIDER],
+		});
+
+		service = TestBed.inject(APP_ALERT_MODAL_SERVICE_TOKEN);
+
+		jest.resetAllMocks();
 	});
 
 	it('should create', () => {

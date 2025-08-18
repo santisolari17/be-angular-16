@@ -1,16 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { ControlledBackendException } from '../errors/ControlledBackendException';
-import { TAppAlertModalMesage } from '../../../components/app-alert-modal/types/TAppModalParams';
 import { ControlledBackendError } from '../errors/ControlledBackendError';
-import { EAppAlertModalType } from '../../../components/app-alert-modal/enums/EAppModalType';
 import { EBackendResponseType, THttpServiceResponse } from '../../../interfaces/http-service.interface';
-import { AppAlertModalService } from '../../../components/app-alert-modal/app-alert-modal.service';
 import { ParentInteractorService } from 'beche-utils-lib';
 import { IHttpErrorHandler } from '../../../interfaces/http-error-handler.interface';
+import { EAppAlertModalType, IAppAlertModalService, TAppAlertModalMesage } from '../../../interfaces/app-alert-modal-service.interface';
+import { APP_ALERT_MODAL_SERVICE_TOKEN } from '../../app-alert-modal/app-alert-modal.provider';
 
 @Injectable({ providedIn: 'root' })
 export class HttpErrorHandlerService implements IHttpErrorHandler {
-	private _alertModalService = inject(AppAlertModalService);
+	private _alertModalService = inject<IAppAlertModalService>(APP_ALERT_MODAL_SERVICE_TOKEN);
 	private _parentInteractorService = inject(ParentInteractorService);
 
 	public catch200CodeResponseError<T>(response: THttpServiceResponse<T>): void {

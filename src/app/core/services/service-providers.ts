@@ -5,6 +5,7 @@ import { BACKEND_RESPONSE_OPERATORS_SERVICE_PROVIDER } from './backend-response-
 import { EXCEL_GENERATOR_SERVICE_PROVIDER } from './excel-generator/excel-generator.provider';
 import { HTTP_ERROR_HANDLER_PROVIDER } from './http-error-handler/http-error-handler.provider';
 import { FOCUS_SERVICE_PROVIDER } from './focus-service/focus-service.provider';
+import { APP_ALERT_MODAL_SERVICE_PROVIDER } from './app-alert-modal/app-alert-modal.provider';
 
 export const APP_SERVICE_PROVIDERS: Provider[] = [
 	HTTP_SERVICE_PROVIDER,
@@ -13,4 +14,5 @@ export const APP_SERVICE_PROVIDERS: Provider[] = [
 	EXCEL_GENERATOR_SERVICE_PROVIDER,
 	HTTP_ERROR_HANDLER_PROVIDER,
 	FOCUS_SERVICE_PROVIDER,
+	APP_ALERT_MODAL_SERVICE_PROVIDER,
 ];

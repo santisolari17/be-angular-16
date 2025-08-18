@@ -1,7 +1,11 @@
 import { Component, computed, effect, EventEmitter, inject, Output, Signal } from '@angular/core';
-import { TAppAlertModalMesage, TAppAlertModalParams } from './types/TAppModalParams';
-import { TModalCloseEvent } from './types/TModalCloseEvent';
-import { AppAlertModalService } from './app-alert-modal.service';
+import { APP_ALERT_MODAL_SERVICE_TOKEN } from '../../services/app-alert-modal/app-alert-modal.provider';
+import {
+	IAppAlertModalService,
+	TAppAlertModalMesage,
+	TAppAlertModalParams,
+	TModalCloseEvent,
+} from '../../interfaces/app-alert-modal-service.interface';
 
 @Component({
 	selector: 'be-alert-modal',
@@ -17,7 +21,7 @@ export class AppAlertModalComponent {
 
 	@Output() public modalClosed: EventEmitter<TModalCloseEvent> = new EventEmitter<TModalCloseEvent>();
 
-	public appAlertModalService = inject(AppAlertModalService);
+	public appAlertModalService = inject<IAppAlertModalService>(APP_ALERT_MODAL_SERVICE_TOKEN);
 
 	constructor() {
 		this.alertConfig = computed(() => this.appAlertModalService.alertConfig());

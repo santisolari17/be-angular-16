@@ -1,9 +1,8 @@
-import { computed, Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import { TAppAlertModalParams } from './types/TAppModalParams';
-import { EAppAlertModalType } from './enums/EAppModalType';
+import { Injectable, WritableSignal, Signal, signal, computed } from '@angular/core';
+import { EAppAlertModalType, IAppAlertModalService, TAppAlertModalParams } from '../../../interfaces/app-alert-modal-service.interface';
 
 @Injectable({ providedIn: 'root' })
-export class AppAlertModalService {
+export class AppAlertModalService implements IAppAlertModalService {
 	private _alertSignal: WritableSignal<TAppAlertModalParams>;
 	readonly alertConfig: Signal<TAppAlertModalParams>;
 

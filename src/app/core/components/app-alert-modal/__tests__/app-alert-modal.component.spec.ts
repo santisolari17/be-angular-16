@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppAlertModalComponent } from '../app-alert-modal.component';
 import { appAlertModalServiceMock } from './app-alert-modal.mocks';
-import { AppAlertModalService } from '../app-alert-modal.service';
+import { APP_ALERT_MODAL_SERVICE_TOKEN } from '../../../services/app-alert-modal/app-alert-modal.provider';
 
 describe('AppAlertModalComponent', () => {
 	let component: AppAlertModalComponent;
@@ -11,7 +11,7 @@ describe('AppAlertModalComponent', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
 			declarations: [AppAlertModalComponent],
-			providers: [{ provide: AppAlertModalService, useValue: appAlertModalServiceMock }],
+			providers: [{ provide: APP_ALERT_MODAL_SERVICE_TOKEN, useValue: appAlertModalServiceMock }],
 			schemas: [CUSTOM_ELEMENTS_SCHEMA],
 		});
 		fixture = TestBed.createComponent(AppAlertModalComponent);
