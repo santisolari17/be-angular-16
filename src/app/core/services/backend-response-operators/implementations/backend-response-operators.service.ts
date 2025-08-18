@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { OperatorFunction, mergeMap, from, toArray, catchError, ObservedValueOf, of, Observable, map } from 'rxjs';
 import { THttpServiceResponse, THttpRequestParams, IHttpService } from '../../../interfaces/http-service.interface';
-import { IBackendResponseOperators } from 'src/app/core/interfaces/backend-response.operators.interface';
+import { IBackendResponseOperators } from '../../../interfaces/backend-response.operators.interface';
 import { IClassEntityValidator } from '../../../interfaces/class-entity-validator.interface';
 import { HTTP_SERVICE_TOKEN } from '../../http/http-service.provider';
 import { CLASS_ENTITY_VALIDATOR_TOKEN } from '../../class-entity-validator/class-entity-validator.provider';

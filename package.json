@@ -20,7 +20,7 @@
     "lint-format": "npm run format && ng lint",
     "start": "node server.js",
     "stats": "webpack-bundle-analyzer dist/*/stats.json",
-    "test": "jest --coverage --verbose --reporter=lcov --reporter=text --forceExit --runInBand",
+    "test": "jest --coverage --verbose --silent --reporter=lcov --reporter=text --forceExit --runInBand",
     "version": "npx conventional-changelog -i CHANGELOG.md -s && git add CHANGELOG.md",
     "prepare": "husky install",
     "server:stubby": "nodemon --config stubs/nodemon-stubs.json",

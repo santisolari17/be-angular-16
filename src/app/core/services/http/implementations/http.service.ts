@@ -3,9 +3,9 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, map, catchError } from 'rxjs';
 
 import { APPLICATION_NAME } from '@utils/constants';
-import { IHttpService, THttpHeaders, THttpRequestParams, THttpServiceResponse } from '@core/interfaces';
-import { IHttpErrorHandler } from 'src/app/core/interfaces/http-error-handler.interface';
-import { HTTP_ERROR_HANDLER_TOKEN } from '@core/services';
+import { IHttpErrorHandler } from '../../../interfaces/http-error-handler.interface';
+import { IHttpService, THttpHeaders, THttpRequestParams, THttpServiceResponse } from '../../../interfaces/http-service.interface';
+import { HTTP_ERROR_HANDLER_TOKEN } from '../../http-error-handler/http-error-handler.provider';
 
 @Injectable({ providedIn: 'root' })
 export class HttpService implements IHttpService {

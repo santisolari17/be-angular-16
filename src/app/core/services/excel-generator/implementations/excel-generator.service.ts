@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ExcelCabecera, ExcelDocument, LoginData, ParentInteractorService } from 'beche-utils-lib';
 import { environment } from '@env/environment';
 
@@ -14,7 +14,9 @@ export class ExcelGeneratorService implements IExcelGenerator {
 	private _driver = new ExcelDocument();
 	private _corporateHeader: ExcelCabecera;
 
-	constructor(private parentInteractorService: ParentInteractorService) {
+	private _parentInteractorService = inject(ParentInteractorService);
+
+	constructor() {
 		const loginData = this._getLoginData(this._mockLoginData);
 
 		this._corporateHeader = {
@@ -137,6 +139,6 @@ export class ExcelGeneratorService implements IExcelGenerator {
 			};
 		}
 
-		return this.parentInteractorService.getLoginData();
+		return this._parentInteractorService.getLoginData();
 	}
 }
